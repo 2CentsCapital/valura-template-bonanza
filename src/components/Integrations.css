@@ -1,0 +1,255 @@
+.integrations-wrapper {
+  background-color: #1A3836; /* Keep green background */
+  padding: 100px 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.integrations {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1300px;
+  padding: 0 54px;
+}
+
+.integrations-split {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 64px;
+  width: 100%;
+  align-items: center;
+}
+
+/* Left Column: Benefits */
+.integrations-info {
+  display: flex;
+  flex-direction: column;
+  color: var(--color-white);
+}
+
+.integrations-badge-orange {
+  display: inline-flex;
+  align-items: center;
+  background-color: rgba(43, 89, 167, 0.15);
+  color: #6B9FE0; /* Light blue badge text to contrast dark background */
+  border: 1px solid rgba(43, 89, 167, 0.3);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  width: fit-content;
+  margin-bottom: 24px;
+}
+
+.integrations-form-title {
+  font-family: var(--font-serif);
+  font-size: 48px;
+  line-height: 1.15;
+  color: var(--color-white);
+  margin: 0 0 24px;
+  letter-spacing: -1px;
+}
+
+.integrations-form-subtitle {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0 0 40px;
+}
+
+.benefits-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.benefits-list li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.benefit-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.benefit-text {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--color-white);
+}
+
+/* Right Column: Form Card */
+.form-card {
+  background-color: #ffffff;
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-card-title {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  color: var(--color-dark);
+  margin: 0 0 28px;
+  font-weight: bold;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  color: #333333;
+}
+
+.form-group input,
+.form-group select {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid #E0E0E0;
+  background-color: #FAFAFA;
+  color: var(--color-dark);
+  outline: none;
+  transition: border-color 0.2s, background-color 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-group input::placeholder {
+  color: #999999;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #2B59A7; /* blue border on focus */
+  background-color: #ffffff;
+}
+
+.form-group select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23333333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 16px;
+  cursor: pointer;
+}
+
+.form-submit-btn {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 600;
+  background-color: #2B59A7; /* Blue button */
+  color: #ffffff;
+  border: none;
+  padding: 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 0.2s, transform 0.1s;
+  margin-top: 10px;
+}
+
+.form-submit-btn:hover {
+  background-color: #1A3F6F;
+}
+
+.form-submit-btn:active {
+  transform: scale(0.98);
+}
+
+.form-submit-btn .arrow {
+  font-size: 18px;
+  transition: transform 0.2s;
+}
+
+.form-submit-btn:hover .arrow {
+  transform: translateX(4px);
+}
+
+.form-disclaimer {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 1.4;
+  color: #666666;
+  margin: 20px 0 0;
+  text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .integrations-split {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .integrations-form-title {
+    font-size: 36px;
+  }
+  
+  .integrations {
+    padding: 0 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .integrations-wrapper {
+    padding: 60px 0;
+  }
+
+  .integrations {
+    padding: 0 24px;
+  }
+
+  .integrations-form-title {
+    font-size: 28px;
+  }
+
+  .integrations-form-subtitle {
+    font-size: 16px;
+    margin-bottom: 24px;
+  }
+
+  .form-card {
+    padding: 24px;
+  }
+
+  .benefit-text {
+    font-size: 16px;
+  }
+}

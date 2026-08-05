@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap');
+
+:root {
+  --color-green: #1A3836;
+  --color-white: #fbfaf2;
+  --color-dark: #333333;
+  --color-purple: #824fe7;
+  --color-purple-light: #6629de;
+  --color-bg-light: #f7f7f7;
+  --color-bg-dark: #1A3836;
+  --color-black: #000000;
+  
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Inter', system-ui, sans-serif;
+  --font-open-sans: 'Inter', system-ui, sans-serif;
+  
+  font-family: var(--font-sans);
+  color-scheme: light;
+  background-color: #ffffff;
+  color: var(--color-dark);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  font-family: var(--font-sans);
+  background-color: #ffffff;
+  scroll-behavior: smooth;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px;
+}
+
+#root {
+  width: 100%;
+  max-width: 100vw;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+}
+
+/* Common Layout Helper Classes */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Common typography utility classes to match Figma text styles */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-light);
+  color: var(--color-dark);
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 100px;
+  letter-spacing: 0.5px;
+}
+
+.btn-primary {
+  background-color: var(--color-white);
+  color: var(--color-purple-light);
+  font-weight: 500;
+  font-size: 16px;
+  padding: 14px 28px;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--color-white);
+  border: 1px solid rgba(251, 250, 242, 0.4);
+  font-weight: 500;
+  font-size: 16px;
+  padding: 14px 28px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-outline:hover {
+  background-color: rgba(251, 250, 242, 0.1);
+  border-color: var(--color-white);
+}
+
+.btn-dark {
+  background-color: var(--color-dark);
+  color: var(--color-white);
+  font-weight: 500;
+  font-size: 16px;
+  padding: 14px 28px;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-dark:hover {
+  opacity: 0.9;
+}
