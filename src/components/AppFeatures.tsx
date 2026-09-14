@@ -1,117 +1,118 @@
+import { AUTH_URL } from '../config';
+import { revealDelay } from '../motion';
+import { IconArrowRight, IconCheck } from './icons';
+import imgOpen from '../assets/media/how-open.webp';
+import imgFund from '../assets/media/how-fund.webp';
+import imgInvest from '../assets/media/how-invest.webp';
 import './AppFeatures.css';
-import img11 from '../assets/Graphics/11.png';
-import img12 from '../assets/Graphics/12.png';
-import img151inv from '../assets/Graphics/151inv.png';
 
-const imgEmployeeApp = img11;
-const imgBenchmarking = img12;
-const imgFinanceAutomated = img151inv;
-const checkIcon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Ccircle cx='12' cy='12' r='12' fill='%2322c55e'/%3E%3Cpath d='M7 12.5l3.2 3.2L17 9' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E";
+type Step = {
+  step: string;
+  title: string;
+  description: string;
+  points: string[];
+  image: { src: string; width: number; height: number; alt: string; caption?: string };
+};
+
+// "How it works" from the live landing, one alternating row per step.
+const STEPS: Step[] = [
+  {
+    step: '01',
+    title: 'Open in 3 minutes',
+    description: 'Digital KYC with PAN and Aadhaar.',
+    points: ['We pre-fill what we can', 'No paperwork trip', 'No re-scanning'],
+    image: { src: imgOpen, width: 444, height: 444, alt: 'An investor completing digital KYC on a laptop' },
+  },
+  {
+    step: '02',
+    title: 'Fund in INR, hold in USD',
+    description: 'LRS-compliant remittance from any Indian bank.',
+    points: ['FX handled for you', 'W-8BEN handled for you', 'GIFT City onboarding handled for you'],
+    image: { src: imgFund, width: 635, height: 408, alt: '' },
+  },
+  {
+    step: '03',
+    title: 'Invest with one tap',
+    description: 'Search a US stock or a structured note, set a size, confirm.',
+    points: [
+      'The position lands in one consolidated view',
+      'Fractional from $1',
+      'In the Valura.Ai app on iOS and Android',
+    ],
+    image: {
+      src: imgInvest,
+      width: 444,
+      height: 444,
+      alt: 'Portfolio analysis screen from the app',
+      caption: 'Illustrative only. Not investment advice.',
+    },
+  },
+];
 
 export default function AppFeatures() {
   return (
-    <div id="research" className="app-features-wrapper">
-      {/* Section 1: Global Research */}
-      <section className="feature-section" data-node-id="93:1322">
-        <div className="feature-info">
-          <div className="feature-badge-container">
-            <div className="badge" data-node-id="93:1323">
-              <span data-node-id="93:1324">MARKET RESEARCH</span>
-            </div>
-          </div>
-          <h2 className="feature-title" data-node-id="93:1325">Research that helps you invest with confidence.</h2>
-          <p className="feature-description" data-node-id="93:1326">
-            Receive expert market analysis, sector outlooks, stock ideas, and actionable insights to make smarter investment decisions.
-          </p>
-          <ul className="feature-list">
-            <li className="feature-list-item" data-node-id="93:1330">
-              <img src={checkIcon} className="check-icon" alt="Check Icon" />
-              <span>Daily market updates</span>
-            </li>
-            <li className="feature-list-item" data-node-id="93:1334">
-              <img src={checkIcon} className="check-icon" alt="Check Icon" />
-              <span>Stock recommendations</span>
-            </li>
-            <li className="feature-list-item" data-node-id="93:1338">
-              <img src={checkIcon} className="check-icon" alt="Check Icon" />
-              <span>Sector research</span>
-            </li>
-          </ul>
-        </div>
-        <div className="feature-visual" data-node-id="93:1339">
-          <div className="feature-screenshot-container" data-node-id="93:1340">
-            <img src={imgEmployeeApp} className="feature-screenshot" alt="Global research analytics" data-node-id="93:1343" />
-          </div>
-        </div>
-      </section>
+    <section id="how-it-works" className="app-features-wrapper" aria-labelledby="how-title">
+      <div className="app-features-header container">
+        <p className="badge" data-reveal="">
+          How it works
+        </p>
+        <h2 id="how-title" className="section-title" data-reveal="" style={revealDelay(80)}>
+          Live in <span className="accent">under ten minutes.</span>
+        </h2>
+        <p className="section-lead" data-reveal="" style={revealDelay(160)}>
+          KYC once. Fund in rupees. Invest in dollars. Valura.Ai handles the IFSCA-regulated rails quietly
+          underneath the Bonanza experience.
+        </p>
+      </div>
 
-      {/* Section 2: Market Intelligence */}
-      <section className="feature-section reverse" data-node-id="93:1300">
-        <div className="feature-info">
-          <div className="feature-badge-container">
-            <div className="badge" data-node-id="93:1301">
-              <span data-node-id="93:1302">WEALTH SOLUTIONS</span>
+      {STEPS.map((step, i) => {
+        const reversed = i % 2 === 1;
+        return (
+          <div key={step.step} className={`feature-section container ${reversed ? 'reverse' : ''}`}>
+            <div className="feature-info" data-reveal={reversed ? 'right' : 'left'}>
+              <div className="feature-badge-container">
+                <p className="badge">Step {step.step}</p>
+              </div>
+              <h3 className="feature-title">{step.title}</h3>
+              <p className="feature-description">{step.description}</p>
+              <ul className="feature-list">
+                {step.points.map((point, k) => (
+                  <li key={point} className="feature-list-item" data-reveal="fade" style={revealDelay(260 + k * 90)}>
+                    <span className="check-icon" aria-hidden="true">
+                      <IconCheck size={16} strokeWidth={2.4} />
+                    </span>
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
+            <figure className="feature-visual" data-reveal="zoom" style={revealDelay(120)}>
+              <div className="feature-screenshot-container">
+                <img
+                  className="feature-screenshot"
+                  src={step.image.src}
+                  width={step.image.width}
+                  height={step.image.height}
+                  alt={step.image.alt}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              {step.image.caption && <figcaption className="visual-caption">{step.image.caption}</figcaption>}
+            </figure>
           </div>
-          <h2 className="feature-title" data-node-id="93:1303">Create a diversified portfolio built for tomorrow.</h2>
-          <p className="feature-description" data-node-id="93:1304">
-            Invest across multiple asset classes while balancing growth, income, and long-term financial security.
-          </p>
-          <ul className="feature-list">
-            <li className="feature-list-item" data-node-id="93:1308">
-              <img src={checkIcon} className="check-icon" alt="Check Icon" />
-              <span>Stocks</span>
-            </li>
-            <li className="feature-list-item" data-node-id="93:1312">
-              <img src={checkIcon} className="check-icon" alt="Check Icon" />
-              <span>Mutual Funds</span>
-            </li>
-            <li className="feature-list-item" data-node-id="93:1316">
-              <img src={checkIcon} className="check-icon" alt="Check Icon" />
-              <span>ETFs & Global Investments</span>
-            </li>
-          </ul>
-        </div>
-        <div className="feature-visual" data-node-id="93:1317">
-          <div className="feature-screenshot-container" data-node-id="93:1318">
-            <img src={imgBenchmarking} className="feature-screenshot" alt="Market intelligence chart" data-node-id="93:1321" />
-          </div>
-        </div>
-      </section>
+        );
+      })}
 
-      {/* Section 3: Wealth Management */}
-      <section className="feature-section" data-node-id="93:1278">
-        <div className="feature-info">
-          <div className="feature-badge-container">
-            <div className="badge" data-node-id="93:1279">
-              <span data-node-id="93:1280">EXPERT GUIDANCE</span>
-            </div>
-          </div>
-          <h2 className="feature-title" data-node-id="93:1281">Financial expertise that grows with you.</h2>
-          <p className="feature-description" data-node-id="93:1282">
-            Whether you're starting your investment journey or expanding an existing portfolio, our advisors help you make informed decisions every step of the way.
-          </p>
-          <ul className="feature-list">
-            <li className="feature-list-item" data-node-id="93:1286">
-              <img src={checkIcon} className="check-icon" alt="Check Icon" />
-              <span>Personalized strategies</span>
-            </li>
-            <li className="feature-list-item" data-node-id="93:1290">
-              <img src={checkIcon} className="check-icon" alt="Check Icon" />
-              <span>Professional advisors</span>
-            </li>
-            <li className="feature-list-item" data-node-id="93:1294">
-              <img src={checkIcon} className="check-icon" alt="Check Icon" />
-              <span>Long-term planning</span>
-            </li>
-          </ul>
-        </div>
-        <div className="feature-visual" data-node-id="93:1295">
-          <div className="feature-screenshot-container" data-node-id="93:1296">
-            <img src={imgFinanceAutomated} className="feature-screenshot" alt="Wealth management portfolio dashboard" data-node-id="93:1299" />
-          </div>
-        </div>
-      </section>
-    </div>
+      <div className="app-features-cta container" data-reveal="">
+        <a className="btn btn-primary btn-lg" href={AUTH_URL}>
+          Start KYC in 3 minutes
+          <IconArrowRight className="btn-icon" size={20} />
+        </a>
+        <a className="btn btn-secondary btn-lg" href="#open">
+          Talk to a specialist
+        </a>
+      </div>
+    </section>
   );
 }

@@ -1,127 +1,485 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap');
-
+/* Bonanza Brand Guidelines v1.0 (Aug 2024): Poppins is the only typeface.
+   Lead colours are royal blue and jade green on white and powder blue;
+   goldenrod and midnight blue are supporting colours. Never pure black. */
 :root {
-  --color-green: #1A3836;
-  --color-white: #fbfaf2;
-  --color-dark: #333333;
-  --color-purple: #824fe7;
-  --color-purple-light: #6629de;
-  --color-bg-light: #f7f7f7;
-  --color-bg-dark: #1A3836;
-  --color-black: #000000;
-  
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-serif: 'Inter', system-ui, sans-serif;
-  --font-open-sans: 'Inter', system-ui, sans-serif;
-  
-  font-family: var(--font-sans);
+  --brand-royal: #2d57a6;
+  --brand-royal-deep: #24468a;
+  --brand-jade: #29a672;
+  --brand-goldenrod: #f19b19;
+  --brand-midnight: #1b223c;
+  --brand-powder: #dfe9f2;
+  --brand-red: #f55f6a;
+  --white: #ffffff;
+
+  --ink: #1b223c;
+  --ink-soft: rgba(27, 34, 60, 0.82);
+  --ink-muted: rgba(27, 34, 60, 0.74);
+  --line: rgba(27, 34, 60, 0.14);
+  --line-strong: rgba(27, 34, 60, 0.36);
+  --on-dark: #ffffff;
+  --on-dark-soft: rgba(255, 255, 255, 0.86);
+  --on-dark-line: rgba(255, 255, 255, 0.2);
+
+  --font: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --radius-sm: 12px;
+  --radius: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --shadow-sm: 0 6px 18px rgba(27, 34, 60, 0.08);
+  --shadow: 0 18px 44px rgba(27, 34, 60, 0.12);
+  --shadow-lift: 0 24px 50px rgba(27, 34, 60, 0.16);
+
+  /* Motion: one easing curve for every transition and reveal, a sine curve for
+     ambient loops. UI transitions 240 to 320ms, reveals 720ms. */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-float: cubic-bezier(0.37, 0, 0.63, 1);
+  --dur-ui: 240ms;
+  --dur-hover: 320ms;
+  --dur-reveal: 720ms;
+
+  --container: 1300px;
+  --gutter: 54px;
+  --header-h: 100px;
+
+  font-family: var(--font);
+  color: var(--ink);
+  background-color: var(--white);
   color-scheme: light;
-  background-color: #ffffff;
-  color: var(--color-dark);
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --gutter: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --gutter: 20px;
+    --header-h: 96px;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-padding-top: calc(var(--header-h) + 12px);
+}
+
+/* Smooth anchor scrolling only when the visitor has not asked for reduced
+   motion; otherwise the browser scrolls natively. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
   margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink);
+  background-color: var(--white);
   overflow-x: hidden;
-  font-family: var(--font-sans);
-  background-color: #ffffff;
-  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
 }
 
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 72px;
+img,
+video,
+svg,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote {
+  margin: 0;
+}
+
+a {
+  color: inherit;
 }
 
 #root {
-  width: 100%;
-  max-width: 100vw;
   min-height: 100vh;
-  margin: 0;
-  padding: 0;
   display: flex;
   flex-direction: column;
 }
 
-*, *::before, *::after {
-  box-sizing: border-box;
+main {
+  display: block;
 }
 
-button, input, select, textarea {
-  font-family: inherit;
+main:focus {
+  outline: none;
 }
 
-/* Common Layout Helper Classes */
+:focus-visible {
+  outline: 3px solid var(--brand-royal);
+  outline-offset: 3px;
+}
+
+.on-dark :focus-visible {
+  outline-color: var(--white);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -64px;
+  z-index: 2000;
+  background-color: var(--brand-midnight);
+  color: var(--white);
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 16px;
+}
+
 .container {
   width: 100%;
-  max-width: 1200px;
+  max-width: var(--container);
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 var(--gutter);
 }
 
-/* Common typography utility classes to match Figma text styles */
+/* Section scaffolding shared by every section */
 .badge {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  background-color: var(--color-bg-light);
-  color: var(--color-dark);
+  gap: 8px;
+  background-color: var(--brand-powder);
+  color: var(--ink);
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
   text-transform: uppercase;
-  padding: 6px 16px;
+  letter-spacing: 0.08em;
+  padding: 6px 14px;
   border-radius: 100px;
-  letter-spacing: 0.5px;
+}
+
+.badge--white {
+  background-color: var(--white);
+}
+
+.badge--dark {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: var(--white);
+}
+
+.section-title {
+  font-size: clamp(30px, 3.4vw, 48px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.section-lead {
+  font-size: clamp(16px, 1.3vw, 18px);
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+
+/* Italic accent role, carried over from the live page's accent phrases. */
+.accent {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--brand-royal);
+}
+
+.on-dark .accent {
+  color: var(--white);
+}
+
+.visual-caption {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--ink-muted);
+  margin-top: 10px;
+}
+
+/* Buttons (links styled as buttons navigate, real buttons act) */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--font);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+  padding: 14px 26px;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-ui) var(--ease-out),
+    border-color var(--dur-ui) var(--ease-out),
+    color var(--dur-ui) var(--ease-out),
+    transform var(--dur-ui) var(--ease-out);
+}
+
+.btn .btn-icon {
+  transition: transform var(--dur-hover) var(--ease-out);
+}
+
+.btn:focus-visible {
+  transform: translateY(-2px);
+}
+
+.btn:focus-visible .btn-icon {
+  transform: translateX(4px);
+}
+
+@media (hover: hover) {
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+
+  /* The arrow nudges forward on the primary calls to action. */
+  .btn:hover .btn-icon {
+    transform: translateX(4px);
+  }
+}
+
+.btn:active {
+  transform: translateY(0);
 }
 
 .btn-primary {
-  background-color: var(--color-white);
-  color: var(--color-purple-light);
-  font-weight: 500;
-  font-size: 16px;
-  padding: 14px 28px;
-  border-radius: 16px;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  background-color: var(--brand-royal);
+  border-color: var(--brand-royal);
+  color: var(--white);
 }
 
 .btn-primary:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
+  background-color: var(--brand-royal-deep);
+  border-color: var(--brand-royal-deep);
 }
 
-.btn-outline {
+.btn-secondary {
   background-color: transparent;
-  color: var(--color-white);
-  border: 1px solid rgba(251, 250, 242, 0.4);
-  font-weight: 500;
-  font-size: 16px;
-  padding: 14px 28px;
-  border-radius: 16px;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  border-color: var(--line-strong);
+  color: var(--ink);
 }
 
-.btn-outline:hover {
-  background-color: rgba(251, 250, 242, 0.1);
-  border-color: var(--color-white);
+.btn-secondary:hover {
+  border-color: var(--ink);
+  background-color: rgba(27, 34, 60, 0.05);
 }
 
-.btn-dark {
-  background-color: var(--color-dark);
-  color: var(--color-white);
-  font-weight: 500;
-  font-size: 16px;
-  padding: 14px 28px;
-  border-radius: 16px;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
+.btn-light {
+  background-color: transparent;
+  border-color: rgba(255, 255, 255, 0.5);
+  color: var(--white);
 }
 
-.btn-dark:hover {
-  opacity: 0.9;
+.btn-light:hover {
+  border-color: var(--white);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn-lg {
+  padding: 16px 28px;
+}
+
+.btn:disabled {
+  cursor: progress;
+  opacity: 0.75;
+  transform: none;
+}
+
+/* Cards lift with a soft shadow on hover. Only transform and opacity animate:
+   the shadow sits on a pseudo-element that fades in behind the card. */
+.lift {
+  position: relative;
+  isolation: isolate;
+  transition: transform var(--dur-hover) var(--ease-out);
+}
+
+.lift::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: var(--lift-radius, var(--radius-lg));
+  box-shadow: var(--shadow-lift);
+  opacity: 0;
+  transition: opacity var(--dur-hover) var(--ease-out);
+  pointer-events: none;
+}
+
+.lift:focus-within {
+  transform: translateY(-6px);
+}
+
+.lift:focus-within::before {
+  opacity: 1;
+}
+
+@media (hover: hover) {
+  .lift:hover {
+    transform: translateY(-6px);
+  }
+
+  .lift:hover::before {
+    opacity: 1;
+  }
+}
+
+/* Entrance reveals.
+   [data-reveal] elements start hidden only after the head script has added
+   html.motion-ready. The controller in src/motion.ts adds data-revealed as they
+   reach the viewport and html.reveal-live once it runs; if it never runs, the
+   failsafe animation shows everything after 2.5 seconds. Reveals animate
+   opacity and the individual translate and scale properties, so they never
+   shift layout and never fight hover transforms. */
+.motion-ready [data-reveal]:not([data-revealed]) {
+  opacity: 0;
+}
+
+.motion-ready:not(.reveal-live) [data-reveal] {
+  animation: reveal-failsafe 1ms linear 2500ms forwards;
+}
+
+[data-reveal][data-revealed] {
+  animation: reveal-up var(--dur-reveal) var(--ease-out) var(--reveal-delay, 0ms) both;
+}
+
+[data-reveal='left'][data-revealed] {
+  animation-name: reveal-left;
+}
+
+[data-reveal='right'][data-revealed] {
+  animation-name: reveal-right;
+}
+
+[data-reveal='zoom'][data-revealed] {
+  animation-name: reveal-zoom;
+}
+
+[data-reveal='fade'][data-revealed] {
+  animation-name: reveal-fade;
+}
+
+[data-reveal][data-reveal-instant] {
+  animation: none;
+}
+
+@keyframes reveal-failsafe {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    translate: 0 28px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes reveal-left {
+  from {
+    opacity: 0;
+    translate: -32px 0;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes reveal-right {
+  from {
+    opacity: 0;
+    translate: 32px 0;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes reveal-zoom {
+  from {
+    opacity: 0;
+    scale: 0.96;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes reveal-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  [data-reveal='left'][data-revealed],
+  [data-reveal='right'][data-revealed] {
+    animation-name: reveal-up;
+  }
+}
+
+/* "Pause animations" (footer control, remembered in localStorage): every CSS
+   animation stops at its resting state and reveals show their final state.
+   JavaScript-driven motion (shader, video, Lottie) listens to the same switch. */
+html[data-motion='paused'] *,
+html[data-motion='paused'] *::before,
+html[data-motion='paused'] *::after {
+  animation: none !important;
+}
+
+html[data-motion='paused'] [data-reveal] {
+  opacity: 1 !important;
 }

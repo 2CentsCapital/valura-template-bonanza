@@ -1,123 +1,103 @@
 .integrations-wrapper {
-  background-color: #1A3836; /* Keep green background */
-  padding: 100px 0;
-  display: flex;
-  justify-content: center;
-  width: 100%;
   position: relative;
   overflow: hidden;
-}
-
-.integrations {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  max-width: 1300px;
-  padding: 0 54px;
+  padding: 100px 0;
+  color: var(--white);
+  background-color: var(--brand-midnight);
 }
 
 .integrations-split {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-columns: 1.05fr 0.95fr;
+  align-items: center;
   gap: 64px;
   width: 100%;
-  align-items: center;
 }
 
-/* Left Column: Benefits */
 .integrations-info {
   display: flex;
   flex-direction: column;
-  color: var(--color-white);
+  align-items: flex-start;
 }
 
-.integrations-badge-orange {
-  display: inline-flex;
-  align-items: center;
-  background-color: rgba(43, 89, 167, 0.15);
-  color: #6B9FE0; /* Light blue badge text to contrast dark background */
-  border: 1px solid rgba(43, 89, 167, 0.3);
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  width: fit-content;
+.integrations-badge {
   margin-bottom: 24px;
 }
 
 .integrations-form-title {
-  font-family: var(--font-serif);
-  font-size: 48px;
+  margin: 0 0 20px;
+  font-size: clamp(30px, 3.4vw, 46px);
+  font-weight: 600;
   line-height: 1.15;
-  color: var(--color-white);
-  margin: 0 0 24px;
-  letter-spacing: -1px;
+  letter-spacing: -0.02em;
+  color: var(--white);
 }
 
 .integrations-form-subtitle {
-  font-family: var(--font-sans);
+  max-width: 520px;
+  margin: 0 0 32px;
   font-size: 18px;
-  line-height: 1.5;
-  color: rgba(255, 255, 255, 0.85);
-  margin: 0 0 40px;
+  line-height: 1.6;
+  color: var(--on-dark-soft);
 }
 
 .benefits-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
+  margin: 0 0 36px;
+  padding: 0;
+  list-style: none;
 }
 
 .benefits-list li {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--white);
 }
 
 .benefit-icon {
-  display: flex;
+  display: inline-flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  color: var(--color-white);
-  font-weight: bold;
-  font-size: 16px;
+  width: 28px;
+  height: 28px;
+  color: var(--brand-jade);
+  border: 1.5px solid var(--brand-jade);
+  border-radius: 50%;
 }
 
-.benefit-text {
-  font-family: var(--font-sans);
-  font-size: 18px;
-  font-weight: 500;
-  color: var(--color-white);
-}
-
-/* Right Column: Form Card */
+/* Lead form card */
 .form-card {
-  background-color: #ffffff;
-  border-radius: 24px;
-  padding: 40px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
   width: 100%;
-  display: flex;
-  flex-direction: column;
+  padding: 40px;
+  color: var(--ink);
+  background-color: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 30px 60px rgba(10, 13, 24, 0.45);
 }
 
 .form-card-title {
-  font-family: var(--font-serif);
-  font-size: 28px;
-  color: var(--color-dark);
-  margin: 0 0 28px;
-  font-weight: bold;
+  margin: 0 0 6px;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.form-card-sub {
+  font-size: 14px;
+  color: var(--ink-muted);
 }
 
 .contact-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
 }
 
 .form-group {
@@ -127,129 +107,141 @@
 }
 
 .form-group label {
-  font-family: var(--font-sans);
   font-size: 14px;
   font-weight: 600;
-  color: #333333;
+  color: var(--ink);
 }
 
 .form-group input,
 .form-group select {
-  font-family: var(--font-sans);
-  font-size: 16px;
-  padding: 14px 16px;
-  border-radius: 12px;
-  border: 1px solid #E0E0E0;
-  background-color: #FAFAFA;
-  color: var(--color-dark);
-  outline: none;
-  transition: border-color 0.2s, background-color 0.2s;
   width: 100%;
-  box-sizing: border-box;
+  padding: 13px 16px;
+  font-size: 16px;
+  color: var(--ink);
+  background-color: var(--white);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: border-color var(--dur-ui) var(--ease-out);
 }
 
 .form-group input::placeholder {
-  color: #999999;
+  color: var(--ink-muted);
+  opacity: 1;
 }
 
-.form-group input:focus,
-.form-group select:focus {
-  border-color: #2B59A7; /* blue border on focus */
-  background-color: #ffffff;
+.form-group input:focus-visible,
+.form-group select:focus-visible {
+  border-color: var(--brand-royal);
+  box-shadow: 0 0 0 3px rgba(45, 87, 166, 0.3);
+  outline: none;
+}
+
+.form-group input[aria-invalid='true'] {
+  border: 2px solid var(--brand-red);
 }
 
 .form-group select {
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23333333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  padding-right: 44px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%231B223C' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 16px center;
   background-size: 16px;
+  appearance: none;
   cursor: pointer;
+}
+
+.field-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.field-error::before {
+  content: '';
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--brand-red);
+  border-radius: 50%;
+}
+
+.form-error {
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  background-color: rgba(245, 95, 106, 0.1);
+  border: 1px solid var(--brand-red);
+  border-radius: var(--radius-sm);
+}
+
+.form-honeypot {
+  display: none;
 }
 
 .form-submit-btn {
-  font-family: var(--font-sans);
-  font-size: 16px;
-  font-weight: 600;
-  background-color: #2B59A7; /* Blue button */
-  color: #ffffff;
-  border: none;
+  width: 100%;
+  margin-top: 6px;
   padding: 16px;
-  border-radius: 12px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  transition: background-color 0.2s, transform 0.1s;
-  margin-top: 10px;
-}
-
-.form-submit-btn:hover {
-  background-color: #1A3F6F;
-}
-
-.form-submit-btn:active {
-  transform: scale(0.98);
-}
-
-.form-submit-btn .arrow {
-  font-size: 18px;
-  transition: transform 0.2s;
-}
-
-.form-submit-btn:hover .arrow {
-  transform: translateX(4px);
 }
 
 .form-disclaimer {
-  font-family: var(--font-sans);
   font-size: 12px;
-  line-height: 1.4;
-  color: #666666;
-  margin: 20px 0 0;
+  line-height: 1.5;
   text-align: center;
+  color: var(--ink-muted);
 }
 
-/* Responsive adjustments */
+.form-success {
+  animation: reveal-up 560ms var(--ease-out) both;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 4px;
+  text-align: center;
+  outline: none;
+}
+
+.form-success-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  color: var(--brand-jade);
+  border: 2px solid var(--brand-jade);
+  border-radius: 50%;
+}
+
+.form-success-text {
+  margin-bottom: 8px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
 @media (max-width: 1024px) {
   .integrations-split {
     grid-template-columns: 1fr;
     gap: 48px;
   }
-
-  .integrations-form-title {
-    font-size: 36px;
-  }
-  
-  .integrations {
-    padding: 0 32px;
-  }
 }
 
 @media (max-width: 768px) {
   .integrations-wrapper {
-    padding: 60px 0;
-  }
-
-  .integrations {
-    padding: 0 24px;
-  }
-
-  .integrations-form-title {
-    font-size: 28px;
-  }
-
-  .integrations-form-subtitle {
-    font-size: 16px;
-    margin-bottom: 24px;
+    padding: 64px 0;
   }
 
   .form-card {
     padding: 24px;
   }
 
-  .benefit-text {
+  .benefits-list li {
     font-size: 16px;
   }
 }

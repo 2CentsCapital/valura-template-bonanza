@@ -1,105 +1,161 @@
-import { useState } from 'react';
-import { DotLottiePlayer } from '@dotlottie/react-player';
-import questionsLottie from '../assets/icons/Questions.lottie';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { revealDelay } from '../motion';
+import { IconChevronDown } from './icons';
 import './FAQ.css';
 
-interface AccordionItem {
-  id: number;
+// The dotLottie player (and its WASM runtime) only loads when the decorative
+// animation is about to be seen, and only on layouts that show it.
+const FaqLottie = lazy(() => import('./FaqLottie'));
+
+type FaqItem = {
   question: string;
   answer: string;
-}
+};
 
-const FAQ_ITEMS: AccordionItem[] = [
+const FAQ_ITEMS: FaqItem[] = [
   {
-    id: 1,
-    question: "How do I start investing?",
-    answer: "Getting started is simple. Open an investment account, complete your KYC, and begin exploring equities, mutual funds, IPOs, and more—all from one platform."
+    question: 'How is this different from a self-serve US-stocks app?',
+    answer:
+      "It isn't a fintech bolted onto a brokerage. It's your Bonanza relationship, the same markets expertise and research, with a regulated global rail added underneath. One view, one tax pack, one conversation.",
   },
   {
-    id: 2,
-    question: "Which investment products are available?",
-    answer: "We offer stocks, mutual funds, IPOs, ETFs, global markets, wealth management, and research advisory services to suit every investor."
+    question: 'Is it legal for an Indian resident to invest abroad this way?',
+    answer:
+      "Yes. Rupees move under RBI's Liberalised Remittance Scheme (LRS) to an IFSCA-regulated broker-dealer at GIFT IFSC, the government-sanctioned route for resident Indians to access permitted global products. Resident Indians can invest up to $250,000 abroad each financial year under LRS.",
   },
   {
-    id: 3,
-    question: "Can I invest in global markets?",
-    answer: "Yes, our platform provides access to international markets, allowing you to diversify your portfolio beyond India with expert research backing."
+    question: 'How do I open an account?',
+    answer:
+      'Select Open account, complete digital KYC with your PAN and Aadhaar, then fund your account in rupees under LRS. You can also get started in the Valura.Ai app on iOS and Android.',
   },
   {
-    id: 4,
-    question: "Do you provide expert research?",
-    answer: "Absolutely. Our team of experienced analysts publishes daily market updates, stock recommendations, sector research, and in-depth investment reports."
+    question: 'What does it cost?',
+    answer:
+      'Zero account-opening fee. A flat per-trade commission on US equities (fractional or whole). Transparent FX on inward remittance. Product-level fees on structured notes and funds are disclosed in their term sheets. No hidden custody charges. The full schedule of fees and charges is disclosed at onboarding.',
   },
   {
-    id: 5,
-    question: "Is my investment secure?",
-    answer: "Yes. We are SEBI-registered, NSE & BSE members, and CDSL depository participant. All investments are held with full regulatory compliance and investor protection."
-  }
+    question: 'Does TCS apply to my remittance?',
+    answer:
+      'Tax Collected at Source (TCS) may apply to LRS remittances under prevailing income-tax rules, depending on the amount and purpose of the remittance. TCS is not a separate tax: it can be adjusted against your income-tax liability when you file your return. Please consult your tax advisor.',
+  },
+  {
+    question: 'How is tax handled?',
+    answer:
+      "You receive one consolidated INR + USD statement at year-end with realised gains, dividends, TDS and a foreign-tax-credit schedule, designed to drop straight into your CA's workflow alongside your domestic Bonanza portfolio.",
+  },
+  {
+    question: 'Where are my investments held?',
+    answer:
+      'Your global account is with Valura India IFSC Limited, an IFSCA-regulated broker-dealer at GIFT City. Custody arrangements for each product are set out in the account documents you receive at onboarding; please read them carefully before investing.',
+  },
+  {
+    question: 'What is the minimum to start?',
+    answer:
+      'Fractional US equities start from $1. Structured income notes and pre-IPO allocations carry higher minimums (pre-IPO tickets start at $10,000) and are subject to investor eligibility. You can begin small and scale as your allocation grows.',
+  },
+  {
+    question: 'What happens to my dollars if I want to bring them home?',
+    answer:
+      "USD balances are repatriable on request, against documented LRS limits. Outward FX, settlement and reporting are handled by the IFSC broker-dealer; you'll get a single statement showing realised gains in both currencies.",
+  },
 ];
 
 export default function FAQ() {
-  const [openId, setOpenId] = useState<number | null>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [showLottie, setShowLottie] = useState(false);
+  const decorRef = useRef<HTMLDivElement>(null);
 
-  const toggleAccordion = (id: number) => {
-    setOpenId(openId === id ? null : id);
-  };
+  useEffect(() => {
+    const decor = decorRef.current;
+    if (!decor || !('IntersectionObserver' in window)) return;
+    const wide = window.matchMedia('(min-width: 1025px)');
+    let observer: IntersectionObserver | null = null;
+    const watch = () => {
+      if (!wide.matches || observer) return;
+      observer = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((entry) => entry.isIntersecting)) {
+            setShowLottie(true);
+            observer?.disconnect();
+          }
+        },
+        { rootMargin: '300px 0px' }
+      );
+      observer.observe(decor);
+    };
+    watch();
+    wide.addEventListener('change', watch);
+    return () => {
+      observer?.disconnect();
+      wide.removeEventListener('change', watch);
+    };
+  }, []);
 
   return (
-    <section id="faq" className="faq-wrapper" data-node-id="93:741">
-      <div className="faq">
-        
-        {/* FAQ Left Block */}
-        <div className="faq-left" data-node-id="93:742">
-          <div className="faq-badge-container">
-            <div className="badge" data-node-id="93:744">
-              <span data-node-id="93:745">FAQ</span>
-            </div>
+    <section id="faq" className="faq-wrapper" aria-labelledby="faq-title">
+      <div className="faq container">
+        <div className="faq-left">
+          <div className="faq-badge-container" data-reveal="">
+            <p className="badge">FAQ</p>
           </div>
-          <h2 className="faq-title" data-node-id="93:743">
-            Frequently Asked Questions
+          <h2 id="faq-title" className="section-title faq-title" data-reveal="" style={revealDelay(80)}>
+            Questions a <span className="accent">Bonanza investor</span> actually asks.
           </h2>
-          
-          <button className="faq-cta-btn" data-node-id="93:746">
-            <span data-node-id="93:752">Talk to us</span>
-          </button>
+          <a className="btn btn-secondary faq-cta-btn" href="#open" data-reveal="" style={revealDelay(160)}>
+            Talk to a specialist
+          </a>
 
-          {/* Decorative Lottie animation */}
-          <div className="faq-decor" data-node-id="93:758">
-            <div className="faq-decor-bg" data-node-id="93:759" />
+          <div className="faq-decor" ref={decorRef} aria-hidden="true" data-reveal="zoom" style={revealDelay(240)}>
+            <div className="faq-decor-bg" />
             <div className="faq-decor-lottie">
-              <DotLottiePlayer 
-                src={questionsLottie} 
-                autoplay 
-                loop 
-                style={{ width: '100%', height: '100%' }}
-              />
+              {showLottie && (
+                <Suspense fallback={null}>
+                  <FaqLottie />
+                </Suspense>
+              )}
             </div>
           </div>
         </div>
 
-        {/* FAQ Right Block (Accordion) */}
-        <div className="faq-right" data-node-id="93:761">
-          {FAQ_ITEMS.map((item) => (
-            <div 
-              key={item.id} 
-              className={`faq-accordion ${openId === item.id ? 'open' : ''}`}
-            >
-              <button 
-                className="faq-trigger" 
-                onClick={() => toggleAccordion(item.id)}
+        <div className="faq-right">
+          {FAQ_ITEMS.map((item, i) => {
+            const isOpen = openIndex === i;
+            return (
+              <div
+                key={item.question}
+                className={`faq-accordion ${isOpen ? 'open' : ''}`}
+                data-reveal=""
+                style={revealDelay(Math.min(i, 6) * 60)}
               >
-                <h3 className="faq-question">{item.question}</h3>
-                <svg className="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </button>
-              <div className="faq-content">
-                <p className="faq-answer">{item.answer}</p>
+                <h3 className="faq-question-heading">
+                  <button
+                    id={`faq-question-${i}`}
+                    type="button"
+                    className="faq-trigger"
+                    aria-expanded={isOpen}
+                    aria-controls={`faq-answer-${i}`}
+                    data-testid="faq-toggle"
+                    onClick={() => setOpenIndex(isOpen ? null : i)}
+                  >
+                    <span className="faq-question">{item.question}</span>
+                    <IconChevronDown className="faq-icon" size={22} />
+                  </button>
+                </h3>
+                <div
+                  id={`faq-answer-${i}`}
+                  role="region"
+                  aria-labelledby={`faq-question-${i}`}
+                  className="faq-content"
+                  inert={!isOpen}
+                >
+                  <div className="faq-content-inner">
+                    <p className="faq-answer">{item.answer}</p>
+                  </div>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
-
       </div>
     </section>
   );

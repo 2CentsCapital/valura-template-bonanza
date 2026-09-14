@@ -1,71 +1,97 @@
-import './Products.css';
+import type { ComponentType, SVGProps } from 'react';
+import { revealDelay } from '../motion';
 import AnimatedLogos from './AnimatedLogos';
+import { IconChart, IconGlobe, IconLandmark, IconLayers, IconRocket, IconTicket } from './icons';
+import './Products.css';
 
-import imgEquity from '../assets/Graphics/Equity (2).png';
-import imgMutualFunds from '../assets/Graphics/MF2.png';
-import imgGlobalMarkets from '../assets/Graphics/GM1.png';
+type Shelf = {
+  Icon: ComponentType<SVGProps<SVGSVGElement> & { size?: number }>;
+  title: string;
+  text: string;
+  tag: string;
+};
+
+// The six shelves from the live landing, edited to the compliance rules: no return
+// figures, no private company names.
+const SHELVES: Shelf[] = [
+  {
+    Icon: IconChart,
+    title: 'US, UK & HK equities',
+    text: 'Listed equities in the US, UK and Hong Kong, including 4,000+ US stocks and ETFs. Fractional, settled into your unified view.',
+    tag: 'From $1',
+  },
+  {
+    Icon: IconGlobe,
+    title: 'Global ETFs',
+    text: 'Core exposure built right: S&P 500, NASDAQ-100, MSCI World, plus 200+ low-cost theme funds.',
+    tag: '200+ ETFs',
+  },
+  {
+    Icon: IconTicket,
+    title: 'Structured income notes',
+    text: 'Notes that pay coupons in US dollars. Coupons are indicative, disclosed per issue and not assured. Capital is at risk.',
+    tag: 'USD income',
+  },
+  {
+    Icon: IconLandmark,
+    title: 'US treasuries & IG bonds',
+    text: 'Hold USD in laddered T-bills and investment-grade corporates.',
+    tag: 'Fixed income',
+  },
+  {
+    Icon: IconRocket,
+    title: 'Pre-IPO & private equity',
+    text: 'Curated late-stage names with research-led sizing. Minimum ticket $10,000.',
+    tag: 'Eligibility',
+  },
+  {
+    Icon: IconLayers,
+    title: 'Global funds & REITs',
+    text: 'Offshore funds, feeders and global REITs, onboarded once and reported alongside your India book.',
+    tag: 'Curated shortlist',
+  },
+];
 
 export default function Products() {
   return (
-    <section id="invest-in" className="products-wrapper" data-node-id="93:1344">
-      <div className="products">
+    <section id="invest-in" className="products-wrapper" aria-labelledby="invest-in-title">
+      <div className="products container">
         <div className="products-header">
-          <div className="badge products-badge" data-node-id="93:1345">
-            <span data-node-id="93:1346">Products</span>
-          </div>
-          <h2 className="products-title" data-node-id="93:1347">
-            Investment solutions for every stage of your financial journey.
+          <p className="badge products-badge" data-reveal="">
+            What you can hold
+          </p>
+          <h2 id="invest-in-title" className="section-title" data-reveal="" style={revealDelay(80)}>
+            Six shelves. <span className="accent">One regulated roof.</span>
           </h2>
+          <p className="section-lead products-lead" data-reveal="" style={revealDelay(160)}>
+            The full global menu, from blue-chip equities to income notes, under one IFSCA account. No
+            second login, no overseas bank account, no scattered tax pack.
+          </p>
         </div>
 
-        {/* Product Cards Grid */}
-        <div className="products-grid">
-          {/* Card 1: Equity Research */}
-          <a href="#equity-research" className="product-card card-health" data-node-id="93:1348">
-            <div className="card-text" data-node-id="93:1349">
-              <h3 className="product-card-title" data-node-id="93:1350">Equity Investing</h3>
-              <p className="product-card-description" data-node-id="93:1352">
-                Build long-term wealth through carefully selected stocks.
-              </p>
-            </div>
-            <div className="product-image-container">
-              <img src={imgEquity} className="product-image" alt="Equity Investing" />
-            </div>
-          </a>
+        <ul className="products-grid">
+          {SHELVES.map(({ Icon, title, text, tag }, i) => (
+            <li key={title} className="product-cell lift" data-reveal="" style={revealDelay((i % 3) * 90)}>
+              <article className={`product-card ${i % 2 === 0 ? 'product-card--royal' : 'product-card--midnight'}`}>
+                <Icon className="product-card-icon" size={32} strokeWidth={1.5} />
+                <h3 className="product-card-title">{title}</h3>
+                <p className="product-card-description">{text}</p>
+                <p className="product-card-tag">{tag}</p>
+              </article>
+            </li>
+          ))}
+        </ul>
 
-          {/* Card 2: Mutual Funds */}
-          <a href="#mutual-funds" className="product-card card-pension" data-node-id="93:1356">
-            <div className="card-text" data-node-id="93:1357">
-              <h3 className="product-card-title" data-node-id="93:1358">Mutual Funds</h3>
-              <p className="product-card-description" data-node-id="93:1360">
-                Invest across diversified portfolios managed by industry experts.
-              </p>
-            </div>
-            <div className="product-image-container">
-              <img src={imgMutualFunds} className="product-image" alt="Mutual Funds" />
-            </div>
-          </a>
-
-          {/* Card 3: Global Markets */}
-          <a href="#global-markets" className="product-card card-life" data-node-id="93:1364">
-            <div className="card-text" data-node-id="93:1365">
-              <h3 className="product-card-title" data-node-id="93:1366">Global Markets</h3>
-              <p className="product-card-description" data-node-id="93:1368">
-                Diversify internationally and unlock worldwide investment opportunities.
-              </p>
-            </div>
-            <div className="product-image-container">
-              <img src={imgGlobalMarkets} className="product-image" alt="Global Markets" />
-            </div>
-          </a>
-        </div>
-
-        {/* Integrated Providers Panel */}
-        <div className="providers-panel" data-node-id="93:1372">
-          <div className="providers-text" data-node-id="93:1373">
-            <h3 className="providers-title" data-node-id="93:1374">All your investments. One powerful platform.</h3>
-            <p className="providers-description" data-node-id="93:1376">
-              Manage every investment from a single intuitive dashboard.
+        <div className="providers-panel" data-reveal="">
+          <div className="providers-text">
+            <h3 className="providers-title">
+              90+ global markets,
+              <br />
+              one account.
+            </h3>
+            <p className="providers-description">
+              100,000+ instruments, including 4,000+ US stocks and ETFs with fractional investing from $1,
+              on one IFSCA-regulated account at GIFT City.
             </p>
           </div>
           <AnimatedLogos />

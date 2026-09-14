@@ -1,88 +1,125 @@
+import type { ReactNode } from 'react';
+import { AUTH_URL } from '../config';
+import { revealDelay } from '../motion';
+import { IconArrowRight } from './icons';
+import LoopVideo from './LoopVideo';
+import imgCompanies from '../assets/media/why-companies.webp';
+import imgIncome from '../assets/media/why-income.webp';
+import imgPreIpo from '../assets/media/why-preipo.webp';
+import globeMp4 from '../assets/media/why-globe.mp4';
+import globeWebm from '../assets/media/why-globe.webm';
+import globePoster from '../assets/media/why-globe-poster.webp';
 import './Features.css';
 
-import imgImage from '../assets/Graphics/stocks.png'; // Stocks & Trading
-import imgImage1 from '../assets/Graphics/MF.png'; // Mutual Funds
-import imgImage2 from '../assets/Graphics/Global inv.webp'; // Global Investing
-import imgImage3 from '../assets/Graphics/IPO.png'; // IPOs & New Listings
-import imgImage4 from '../assets/Graphics/Wealth M.png'; // Wealth Management
+type Card = {
+  index: string;
+  title: ReactNode;
+  text: string;
+  meta: string;
+  media: ReactNode;
+};
+
+const CARDS: Card[] = [
+  {
+    index: '01',
+    title: (
+      <>
+        Diversify beyond the <span className="accent">rupee.</span>
+      </>
+    ),
+    text: 'USD revenue, USD profits, USD valuations, denominated in dollars rather than rupees. Historically, a modest global leg has improved drawdown behaviour for some long-horizon Indian portfolios. Past performance is not indicative of future returns.',
+    meta: 'Currency diversification',
+    media: (
+      <LoopVideo
+        className="card-image card-image--contain"
+        mp4={globeMp4}
+        webm={globeWebm}
+        poster={globePoster}
+        width={640}
+        height={360}
+      />
+    ),
+  },
+  {
+    index: '02',
+    title: (
+      <>
+        Own the companies you use <span className="accent">every day.</span>
+      </>
+    ),
+    text: 'Apple, NVIDIA, Microsoft, Alphabet, Meta, Tesla: investable in a single tap, fractional from $1, reported alongside your existing Bonanza portfolio.',
+    meta: 'Fractional from $1',
+    media: <img className="card-image" src={imgCompanies} width={635} height={408} loading="lazy" decoding="async" alt="" />,
+  },
+  {
+    index: '03',
+    title: (
+      <>
+        Seek income in <span className="accent">dollars.</span>
+      </>
+    ),
+    text: 'Structured income notes and short-duration US treasuries can pay a coupon on idle USD. Coupons are indicative, disclosed per issue and not assured. Capital is at risk.',
+    meta: 'USD coupons, indicative',
+    media: <img className="card-image" src={imgIncome} width={740} height={448} loading="lazy" decoding="async" alt="" />,
+  },
+  {
+    index: '04',
+    title: (
+      <>
+        Be in <span className="accent">before</span> the IPO.
+      </>
+    ),
+    text: 'Curated late-stage allocations, the kind of access Indian investors have asked for and rarely received, sized with research. Minimum ticket $10,000; eligibility applies.',
+    meta: 'Pre-IPO, eligibility applies',
+    media: <img className="card-image" src={imgPreIpo} width={740} height={238} loading="lazy" decoding="async" alt="" />,
+  },
+];
 
 export default function Features() {
   return (
-    <section id="why-global" className="features-wrapper" data-node-id="93:1383">
-      <div className="features">
+    <section id="why-global" className="features-wrapper" aria-labelledby="why-global-title">
+      <div className="features container">
         <div className="features-header">
-          <div className="badge features-badge" data-node-id="93:1384">
-            <span data-node-id="93:1385">Why Bonanza</span>
-          </div>
-          <h2 className="features-title" data-node-id="93:1386">
-            Everything you need to grow your wealth.
+          <p className="badge features-badge" data-reveal="">
+            Why global, why now
+          </p>
+          <h2 id="why-global-title" className="section-title" data-reveal="" style={revealDelay(80)}>
+            A portfolio with <span className="accent">two engines.</span>
           </h2>
+          <div className="features-lede" data-reveal="" style={revealDelay(160)}>
+            <p>
+              India built your wealth. The rest of the world can diversify it. Eight of the ten largest
+              companies on earth trade outside India, and in past decades a dollar leg has often steadied
+              Indian portfolios through rupee cycles. Past performance is not indicative of future
+              returns.
+            </p>
+            <p>
+              This isn&apos;t a switch from rupees to dollars. It&apos;s a second engine added to the
+              markets expertise you already trust with Bonanza: same conviction, wider canvas.
+            </p>
+          </div>
+          <a className="btn btn-primary" href={AUTH_URL} data-reveal="" style={revealDelay(240)}>
+            Open a global account
+            <IconArrowRight className="btn-icon" size={20} />
+          </a>
         </div>
 
-        {/* Row 1: 3 columns */}
-        <div className="features-grid">
-          <div className="feature-card" data-node-id="93:1387">
-            <div className="card-text" data-node-id="93:1388">
-              <h3 className="card-title" data-node-id="93:1390">Stocks & Trading</h3>
-              <p className="card-description" data-node-id="93:1392">
-                Trade confidently with real-time insights and powerful market tools.
-              </p>
-            </div>
-            <div className="card-image-container" data-node-id="93:1393">
-              <img src={imgImage} alt="Global investing map" className="card-image" data-node-id="93:1398" />
-            </div>
-          </div>
-
-          <div className="feature-card" data-node-id="93:1399">
-            <div className="card-text" data-node-id="93:1400">
-              <h3 className="card-title" data-node-id="93:1402">Mutual Funds</h3>
-              <p className="card-description" data-node-id="93:1404">
-                Discover professionally managed funds aligned with your financial goals.
-              </p>
-            </div>
-            <div className="card-image-container" data-node-id="93:1405">
-              <img src={imgImage1} alt="Fundamental research analysis" className="card-image" data-node-id="93:1410" />
-            </div>
-          </div>
-
-          <div className="feature-card" data-node-id="93:1411">
-            <div className="card-text" data-node-id="93:1412">
-              <h3 className="card-title" data-node-id="93:1414">Global Investing</h3>
-              <p className="card-description" data-node-id="93:1416">
-                Access investment opportunities beyond domestic markets.
-              </p>
-            </div>
-            <div className="card-image-container" data-node-id="93:1417">
-              <img src={imgImage2} alt="Compliance and transparency audit" className="card-image" data-node-id="93:1421" />
-            </div>
-          </div>
-        </div>
-
-        {/* Row 2: 2 columns */}
         <div className="features-grid-wide">
-          <div className="feature-card feature-card-wide" data-node-id="93:1422">
-            <div className="card-text" data-node-id="93:1423">
-              <h3 className="card-title" data-node-id="93:1425">IPOs & New Listings</h3>
-              <p className="card-description" data-node-id="93:1427">
-                Stay ahead with upcoming IPOs and curated investment opportunities.
-              </p>
+          {CARDS.map((card, i) => (
+            <div key={card.index} className="feature-cell lift" data-reveal="" style={revealDelay((i % 2) * 110)}>
+              <article className="feature-card">
+                <div className="card-text">
+                  <span className="card-index" aria-hidden="true">
+                    {card.index}
+                  </span>
+                  <h3 className="card-title">{card.title}</h3>
+                  <p className="card-description">{card.text}</p>
+                  <p className="card-meta">{card.meta}</p>
+                </div>
+                <div className="card-image-container">{card.media}</div>
+              </article>
             </div>
-            <div className="card-image-container" data-node-id="93:1428">
-              <img src={imgImage3} alt="Sustainable wealth growth chart" className="card-image" data-node-id="93:1433" />
-            </div>
-          </div>
-
-          <div className="feature-card feature-card-wide" data-node-id="93:1434">
-            <div className="card-text" data-node-id="93:1435">
-              <h3 className="card-title" data-node-id="93:1437">Wealth Management</h3>
-              <p className="card-description" data-node-id="93:1439">
-                Personalized investment strategies designed for long-term wealth creation.
-              </p>
-            </div>
-            <div className="card-image-container" data-node-id="93:1440">
-              <img src={imgImage4} alt="Single dashboard for wealth portfolios" className="card-image" data-node-id="93:1444" />
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>
