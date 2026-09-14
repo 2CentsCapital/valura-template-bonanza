@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { DotLottiePlayer } from '@dotlottie/react-player';
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import questionsLottie from '../assets/icons/Questions.lottie';
 import './FAQ.css';
 
@@ -13,7 +13,7 @@ const FAQ_ITEMS: AccordionItem[] = [
   {
     id: 1,
     question: "How do I start investing?",
-    answer: "Getting started is simple. Open an investment account, complete your KYC, and begin exploring equities, mutual funds, IPOs, and more—all from one platform."
+    answer: "Getting started is simple. Open an investment account, complete your KYC, and begin exploring equities, mutual funds, IPOs, and more, all from one platform."
   },
   {
     id: 2,
@@ -67,7 +67,7 @@ export default function FAQ() {
           <div className="faq-decor" data-node-id="93:758">
             <div className="faq-decor-bg" data-node-id="93:759" />
             <div className="faq-decor-lottie">
-              <DotLottiePlayer 
+              <DotLottieReact 
                 src={questionsLottie} 
                 autoplay 
                 loop 
