@@ -95,8 +95,12 @@
   pointer-events: none;
 }
 
-.hero-icon-bars svg {
-  animation: float-bars 5s var(--ease-float) 1s infinite;
+/* The chart icon enters with the copy, then floats. Both animations sit on the
+   wrapper rather than the SVG so the browser can composite them. */
+.hero-icon-bars.hero-enter {
+  animation:
+    reveal-up 700ms var(--ease-out) var(--enter-delay, 0ms) both,
+    float-bars 5s var(--ease-float) 1s infinite;
 }
 
 .hero-title {

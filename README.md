@@ -24,8 +24,8 @@ Bonanza brand book.
 | Live landing section | Component |
 | --- | --- |
 | Header and navigation | `src/components/Header.tsx` |
-| Hero, credentials strip, stats | `src/components/Hero.tsx` |
-| Why global, why now | `src/components/Features.tsx` |
+| Hero, credentials strip, stats | `src/components/Hero.tsx` with `RollingNumber.tsx` |
+| Why global, why now | `src/components/Features.tsx` with `LoopVideo.tsx` |
 | What you can hold (six shelves) | `src/components/Products.tsx` with `AnimatedLogos.tsx` |
 | Research-led, not noise-led | `src/components/Research.tsx` |
 | Quote band | `src/components/CTASection.tsx` |
@@ -33,9 +33,10 @@ Bonanza brand book.
 | Trust and regulation | `src/components/Trust.tsx` |
 | FAQ | `src/components/FAQ.tsx` with `FaqLottie.tsx` |
 | Open your global desk (lead form, app download) | `src/components/Integrations.tsx`, `LeadForm.tsx`, `StoreButtons.tsx` |
-| Footer and legal | `src/components/Footer.tsx` |
+| Footer and legal | `src/components/Footer.tsx` with `MotionToggle.tsx` |
 
-Links, store URLs and the Web3Forms key and subject live in `src/config.ts`.
+Links, store URLs and the Web3Forms key and subject live in `src/config.ts`. Motion controls live in
+`src/motion.ts`.
 
 ## Brand and compliance rules applied
 
@@ -43,13 +44,53 @@ Links, store URLs and the Web3Forms key and subject live in `src/config.ts`.
   characters in text; icons are outlined inline SVGs in `src/components/icons.tsx`.
 - Palette: royal blue `#2D57A6`, jade `#29A672`, goldenrod `#F19B19`, midnight blue `#1B223C`,
   powder blue `#DFE9F2`, red `#F55F6A`. No pure black, no white text on light grounds, no coloured
-  text on coloured grounds.
+  text on coloured grounds. Motion introduces no new colours.
 - The approved joint lockup appears once, in the header, at the brand book's 80px web minimum on a
-  single white ground. The footer uses the worded name. The favicon is the Bonanza icon from the
-  brand kit.
+  single white ground, and is never animated. The footer uses the worded name. The favicon is the
+  Bonanza icon from the brand kit.
 - No guaranteed, assured or protected returns, no return or yield figures, no superlatives, no
   competitor or private company names. Mock screens are captioned "Illustrative only. Not investment
   advice." The market-risk line sits in the footer.
+
+## Motion
+
+Designed motion runs for every visitor, including when the operating system asks for reduced motion.
+Under `prefers-reduced-motion: reduce` the page only drops smooth anchor scrolling (the browser
+scrolls natively), and the hero shader drifts at 60 percent speed instead of full speed. The page has
+no scroll-linked effects such as parallax.
+
+**Pause animations.** A button in the footer stops every moving element: CSS animations (marquee,
+floating cards, pulses, reveals), the WebGL shader, the globe loop and the FAQ animation. Its label
+switches to "Play animations". The choice is stored in `localStorage` under `bonanza-motion` and is
+applied before first paint by the inline script in `index.html`, so it holds across visits. The
+credentials marquee also pauses on hover and on keyboard focus. While motion is paused, the marquee
+becomes a static, centred set of chips.
+
+| Section | Motion |
+| --- | --- |
+| Header | Shadow fades in on scroll; the nav underline grows on hover and focus; the mobile menu eases open. The joint lockup never moves. |
+| Hero | WebGL background fades in and drifts; the headline rises line by line; eyebrow, copy, buttons and trust points follow within 400ms; the globe card eases in and floats; exchange chips and side cards drift. |
+| Credentials and stats | Continuous marquee with edge fades; the figures roll up digit by digit when they reach the viewport. |
+| Why global | Staggered heading and cards; cards lift on hover; globe loop video; images scale gently on hover. |
+| What you can hold | Staggered cards that lift on hover; card rings widen on hover; shelf icons pulse in turn with sparkles along the beam. |
+| Research | Staggered heading and cards that lift on hover. |
+| Quote band | Staggered reveal; a slow drift inside the image frame. |
+| How it works | Rows slide in from their own side; ticks appear one by one; screenshots zoom in. |
+| Trust and regulation | Staggered copy; registrations fade in row by row. |
+| FAQ | Staggered questions; answers open by height while the text settles; question-mark animation. |
+| Open your global desk | Staggered benefits; the form card eases in; the success message rises in. |
+| Footer | Static, so legal and risk text is never behind an animation. Holds the Pause control. |
+
+Guards:
+
+- Only transform and opacity animate, apart from the FAQ answer height, which animates on click.
+- Reveals take 720ms, hero copy starts within 400ms, UI transitions take 240 to 320ms, and all of
+  them share one easing curve. Ambient loops use a sine curve.
+- Reveals can never hide content for good: an IntersectionObserver, a scroll and resize sweep and
+  timed sweeps reveal elements, and a CSS failsafe shows everything after 2.5 seconds if the reveal
+  controller never starts.
+- The shader, the globe loop and the FAQ animation pause offscreen and while the tab is hidden. The
+  shader caps the device pixel ratio at 1.5.
 
 ## Run locally
 
@@ -83,9 +124,8 @@ log-in links go to `https://bonanza.valura.ai/auth`.
 
 - Images are WebP, sized for twice their rendered size. Below-the-fold media is lazy-loaded.
 - The globe in "Why global" is a muted MP4/WebM loop with a poster. It only loads near the
-  viewport, pauses offscreen, and shows the poster to visitors who prefer reduced motion.
-- The hero WebGL background starts when the browser is idle, pauses offscreen and draws a single
-  still frame under reduced motion.
+  viewport.
+- The hero WebGL background starts when the browser is idle.
 - The FAQ animation uses `@lottiefiles/dotlottie-react`. It is lazy-loaded on layouts 1025px and
   wider when the FAQ approaches the viewport. The player downloads its WASM runtime from jsDelivr
   (unpkg as fallback). If a content security policy blocks those hosts, self-host

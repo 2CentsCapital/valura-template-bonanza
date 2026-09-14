@@ -29,7 +29,7 @@ export default function RollingNumber({ value, delay = 0 }: Props) {
           }
           const target = 10 + Number(char);
           const style = {
-            '--odo-to': `${(-target / STRIP.length) * 100}%`,
+            '--odo-to': `${(-target * 100) / STRIP.length}%`,
             '--odo-delay': `${delay + digitIndex * 70}ms`,
           } as CSSProperties;
           digitIndex += 1;
