@@ -55,10 +55,22 @@
   border-radius: var(--radius-lg);
 }
 
+/* A very slow drift inside the frame keeps the band alive without drawing the eye. */
 .cta-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transform-origin: 55% 45%;
+  animation: slow-drift 16s var(--ease-float) infinite alternate;
+}
+
+@keyframes slow-drift {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.06);
+  }
 }
 
 @media (max-width: 1024px) {

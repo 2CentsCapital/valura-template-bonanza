@@ -25,10 +25,10 @@
   width: 100% !important;
   height: 100% !important;
   pointer-events: none;
-  animation: hero-canvas-in 0.9s ease both;
+  animation: hero-fade-in 1200ms var(--ease-out) both;
 }
 
-@keyframes hero-canvas-in {
+@keyframes hero-fade-in {
   from {
     opacity: 0;
   }
@@ -52,6 +52,11 @@
   flex-direction: column;
   align-items: flex-start;
   max-width: 640px;
+}
+
+/* Hero copy enters on load; delays come from --enter-delay (0 to 400ms). */
+.hero-enter {
+  animation: reveal-up 700ms var(--ease-out) var(--enter-delay, 0ms) both;
 }
 
 .hero-eyebrow {
@@ -87,8 +92,11 @@
   top: -14px;
   right: 0;
   color: var(--brand-jade);
-  animation: float-bars 5s ease-in-out infinite;
   pointer-events: none;
+}
+
+.hero-icon-bars svg {
+  animation: float-bars 5s var(--ease-float) 1s infinite;
 }
 
 .hero-title {
@@ -98,6 +106,30 @@
   line-height: 1.1;
   letter-spacing: -0.025em;
   color: var(--ink);
+}
+
+/* Each headline line rises through its own mask. The padding and the matching
+   negative margin give descenders and the italic overhang room without
+   changing the layout. */
+.hero-line {
+  display: block;
+  overflow: hidden;
+  padding: 0 0.14em 0.18em 0;
+  margin: 0 -0.14em -0.18em 0;
+}
+
+.hero-line-inner {
+  display: inline-block;
+  animation: line-rise 780ms var(--ease-out) var(--enter-delay, 0ms) both;
+}
+
+@keyframes line-rise {
+  from {
+    translate: 0 120%;
+  }
+  to {
+    translate: 0 0;
+  }
 }
 
 .hero-title-inline {
@@ -110,16 +142,16 @@
 .hero-icon-globe {
   display: inline-flex;
   color: var(--brand-royal);
-  animation: float-coin 4s ease-in-out infinite;
+  animation: float-coin 4s var(--ease-float) 900ms infinite;
 }
 
 @keyframes float-coin {
   0%,
   100% {
-    transform: translateY(3px);
+    transform: translateY(0);
   }
   50% {
-    transform: translateY(-4px);
+    transform: translateY(-6px);
   }
 }
 
@@ -173,7 +205,8 @@
   background-color: var(--brand-jade);
 }
 
-/* Hero visual: live landing's exchange chips and side cards around the globe */
+/* Hero visual: the globe card eases in, then floats gently; the live landing's
+   exchange chips and side cards drift on their own rhythm. */
 .hero-right {
   display: flex;
   justify-content: center;
@@ -182,6 +215,20 @@
 .hero-visual {
   width: 100%;
   max-width: 500px;
+  animation: card-in 820ms var(--ease-out) 140ms both;
+}
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    translate: 0 28px;
+    scale: 0.96;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+  }
 }
 
 .hero-visual-frame {
@@ -197,6 +244,17 @@
   border-radius: var(--radius-lg);
   background-color: var(--brand-midnight);
   box-shadow: var(--shadow);
+  animation: float-soft 8s var(--ease-float) 1s infinite;
+}
+
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 .exchange-chips {
@@ -216,7 +274,7 @@
   border: 1px solid var(--line);
   border-radius: 100px;
   box-shadow: var(--shadow-sm);
-  animation: floaty 6s ease-in-out infinite;
+  animation: floaty 6s var(--ease-float) infinite;
 }
 
 .chip-dot {
@@ -294,7 +352,7 @@
   border: 1px solid var(--line);
   border-radius: 14px;
   box-shadow: var(--shadow);
-  animation: floaty 6s ease-in-out infinite;
+  animation: floaty 6s var(--ease-float) infinite;
 }
 
 .sidecard-1 {
@@ -404,11 +462,13 @@
   width: 100%;
   overflow: hidden;
   user-select: none;
+  border-radius: var(--radius-sm);
   -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
   mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
 }
 
-.sponsors-marquee:hover .sponsors-marquee-content {
+.sponsors-marquee:hover .sponsors-marquee-content,
+.sponsors-marquee:focus-visible .sponsors-marquee-content {
   animation-play-state: paused;
 }
 
@@ -449,6 +509,37 @@
   }
 }
 
+/* Paused: one tidy, centred set of credential chips, no separators, no fades. */
+html[data-motion='paused'] .sponsors-marquee {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+html[data-motion='paused'] .sponsors-marquee-content {
+  flex-shrink: 1;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+}
+
+html[data-motion='paused'] .sponsors-marquee-content[aria-hidden='true'] {
+  display: none;
+}
+
+html[data-motion='paused'] .marquee-item {
+  padding: 8px 18px;
+  font-size: 15px;
+  border: 1px solid var(--line-strong);
+  border-radius: 100px;
+}
+
+html[data-motion='paused'] .marquee-separator {
+  display: none;
+}
+
 .stats-row {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -471,7 +562,7 @@
   margin: 0;
   font-size: clamp(30px, 3vw, 42px);
   font-weight: 600;
-  line-height: 1.1;
+  line-height: 1.15;
   letter-spacing: -0.02em;
   color: var(--brand-royal);
 }
@@ -480,34 +571,6 @@
   font-size: 14px;
   font-weight: 500;
   color: var(--ink-soft);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .sponsors-marquee {
-    -webkit-mask-image: none;
-    mask-image: none;
-  }
-
-  .sponsors-marquee-content {
-    flex-shrink: 1;
-    flex-wrap: wrap;
-    justify-content: center;
-    row-gap: 14px;
-    min-width: 0;
-    animation: none;
-  }
-
-  .sponsors-marquee-content[aria-hidden='true'] {
-    display: none;
-  }
-
-  .hero-icon-bars,
-  .hero-icon-globe,
-  .exchange-chip,
-  .sidecard,
-  .hero-canvas {
-    animation: none;
-  }
 }
 
 @media (max-width: 1100px) {

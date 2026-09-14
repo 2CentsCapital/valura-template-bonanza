@@ -8,6 +8,25 @@
   border-bottom: 1px solid var(--line);
 }
 
+/* Soft shadow once the page scrolls, faded in with opacity only. */
+.navbar-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 0;
+  height: 18px;
+  background: linear-gradient(to bottom, rgba(27, 34, 60, 0.1), rgba(27, 34, 60, 0));
+  opacity: 0;
+  transition: opacity var(--dur-hover) var(--ease-out);
+  pointer-events: none;
+}
+
+.navbar-wrapper.is-scrolled::after {
+  opacity: 1;
+}
+
 .navbar {
   display: flex;
   align-items: center;
@@ -16,8 +35,8 @@
   height: var(--header-h);
 }
 
-/* The lockup sits on a single white ground with clear space around it and
-   never drops below the brand book's 80px web minimum. */
+/* The lockup sits on a single white ground with clear space around it, never
+   drops below the brand book's 80px web minimum and is never animated. */
 .logo-container {
   display: flex;
   align-items: center;
@@ -41,19 +60,39 @@
 }
 
 .nav-link {
+  position: relative;
   display: inline-block;
   padding: 6px 0;
   font-size: 16px;
   font-weight: 500;
   color: var(--ink);
   text-decoration: none;
-  border-bottom: 2px solid transparent;
-  transition: color 0.2s ease, border-color 0.2s ease;
+  transition: color var(--dur-ui) var(--ease-out);
 }
 
-.nav-link:hover {
+/* Underline grows from the left on hover and keyboard focus. */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background-color: var(--brand-royal);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--dur-hover) var(--ease-out);
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
   color: var(--brand-royal);
-  border-bottom-color: var(--brand-royal);
+}
+
+.nav-link:hover::after,
+.nav-link:focus-visible::after {
+  transform: scaleX(1);
 }
 
 .nav-actions {
@@ -97,6 +136,7 @@
   top: 100%;
   left: 0;
   right: 0;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -108,8 +148,23 @@
   box-shadow: 0 16px 32px rgba(27, 34, 60, 0.12);
 }
 
+.mobile-menu-overlay:not([hidden]) {
+  animation: menu-in var(--dur-hover) var(--ease-out) both;
+}
+
 .mobile-menu-overlay[hidden] {
   display: none;
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    translate: 0 -8px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
 }
 
 .mobile-nav-links {
@@ -123,6 +178,10 @@
   padding: 14px 2px;
   font-size: 17px;
   border-bottom: 1px solid var(--line);
+}
+
+.mobile-nav-links .nav-link::after {
+  display: none;
 }
 
 .mobile-nav-actions {

@@ -1,3 +1,4 @@
+import { revealDelay } from '../motion';
 import { IconFileCheck } from './icons';
 import './Trust.css';
 
@@ -19,35 +20,37 @@ export default function Trust() {
     <section id="trust" className="trust-wrapper" aria-labelledby="trust-title">
       <div className="trust container">
         <div className="trust-body">
-          <p className="badge badge--white">Trust &amp; regulation</p>
-          <h2 id="trust-title" className="section-title">
+          <p className="badge badge--white" data-reveal="">
+            Trust &amp; regulation
+          </p>
+          <h2 id="trust-title" className="section-title" data-reveal="" style={revealDelay(80)}>
             Twin-regulated. <span className="accent">Single trail.</span>
           </h2>
-          <p>
+          <p data-reveal="" style={revealDelay(160)}>
             <strong>Bonanza</strong> has been a broking and wealth house since 1994: a SEBI-registered stock
             broker across NSE, BSE and MCX, with depository, PMS, commodities and research, and 1,700+ outlets
             across 600+ cities. <strong>Valura.Ai</strong> (Valura India IFSC Limited) is a GIFT City
             broker-dealer regulated by IFSCA, the government-sanctioned route for resident Indians to invest in
             permitted global products.
           </p>
-          <p>
+          <p data-reveal="" style={revealDelay(240)}>
             Your money moves on a regulated rail. Rupees move under LRS to an IFSC entity, securities settle
             into onshore-linked global custody, and reporting comes back consolidated, in INR and USD, ready
             for your tax workflow.
           </p>
-          <a className="btn btn-secondary" href="#open">
+          <a className="btn btn-secondary" href="#open" data-reveal="" style={revealDelay(320)}>
             Request the regulatory pack
           </a>
         </div>
 
-        <div className="regbox">
+        <div className="regbox" data-reveal="right" style={revealDelay(120)}>
           <p className="regbox-title">
             <IconFileCheck size={22} />
             Registrations
           </p>
           <dl className="regbox-list">
-            {REGISTRATIONS.map((row) => (
-              <div className="regrow" key={row.label}>
+            {REGISTRATIONS.map((row, k) => (
+              <div className="regrow" key={row.label} data-reveal="fade" style={revealDelay(240 + k * 60)}>
                 <dt>{row.label}</dt>
                 <dd>{row.value}</dd>
               </div>

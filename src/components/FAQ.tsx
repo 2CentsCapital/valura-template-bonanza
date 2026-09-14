@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { revealDelay } from '../motion';
 import { IconChevronDown } from './icons';
 import './FAQ.css';
 
@@ -94,17 +95,17 @@ export default function FAQ() {
     <section id="faq" className="faq-wrapper" aria-labelledby="faq-title">
       <div className="faq container">
         <div className="faq-left">
-          <div className="faq-badge-container">
+          <div className="faq-badge-container" data-reveal="">
             <p className="badge">FAQ</p>
           </div>
-          <h2 id="faq-title" className="section-title faq-title">
+          <h2 id="faq-title" className="section-title faq-title" data-reveal="" style={revealDelay(80)}>
             Questions a <span className="accent">Bonanza investor</span> actually asks.
           </h2>
-          <a className="btn btn-secondary faq-cta-btn" href="#open">
+          <a className="btn btn-secondary faq-cta-btn" href="#open" data-reveal="" style={revealDelay(160)}>
             Talk to a specialist
           </a>
 
-          <div className="faq-decor" ref={decorRef} aria-hidden="true">
+          <div className="faq-decor" ref={decorRef} aria-hidden="true" data-reveal="zoom" style={revealDelay(240)}>
             <div className="faq-decor-bg" />
             <div className="faq-decor-lottie">
               {showLottie && (
@@ -120,7 +121,12 @@ export default function FAQ() {
           {FAQ_ITEMS.map((item, i) => {
             const isOpen = openIndex === i;
             return (
-              <div key={item.question} className={`faq-accordion ${isOpen ? 'open' : ''}`}>
+              <div
+                key={item.question}
+                className={`faq-accordion ${isOpen ? 'open' : ''}`}
+                data-reveal=""
+                style={revealDelay(Math.min(i, 6) * 60)}
+              >
                 <h3 className="faq-question-heading">
                   <button
                     id={`faq-question-${i}`}

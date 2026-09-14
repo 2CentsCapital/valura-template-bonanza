@@ -39,21 +39,22 @@
   width: 100%;
 }
 
+/* The cell carries the reveal and the hover lift; the card keeps its clipping. */
+.feature-cell {
+  display: flex;
+  --lift-radius: var(--radius-lg);
+}
+
 .feature-card {
   position: relative;
   display: flex;
+  flex: 1;
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
   padding: 32px 32px 0;
   background-color: var(--brand-powder);
   border-radius: var(--radius-lg);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.feature-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow);
 }
 
 .card-text {
@@ -126,15 +127,17 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  transition: transform 700ms var(--ease-out);
 }
 
 .card-image--contain {
   object-fit: contain;
 }
 
-.feature-card:hover .card-image {
-  transform: scale(1.03);
+@media (hover: hover) {
+  .feature-cell:hover .card-image {
+    transform: scale(1.04);
+  }
 }
 
 @media (max-width: 768px) {

@@ -103,11 +103,13 @@
 .feature-screenshot {
   width: 100%;
   height: auto;
-  transition: transform 0.4s ease;
+  transition: transform 700ms var(--ease-out);
 }
 
-.feature-screenshot-container:hover .feature-screenshot {
-  transform: scale(1.02);
+@media (hover: hover) {
+  .feature-screenshot-container:hover .feature-screenshot {
+    transform: scale(1.03);
+  }
 }
 
 .app-features-cta {

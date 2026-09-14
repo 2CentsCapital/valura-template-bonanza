@@ -36,21 +36,22 @@
   list-style: none;
 }
 
+/* The cell carries the reveal and the hover lift; the card keeps its clipping. */
+.product-cell {
+  display: flex;
+  --lift-radius: var(--radius-xl);
+}
+
 .product-card {
   position: relative;
   display: flex;
+  flex: 1;
   flex-direction: column;
   min-height: 300px;
   overflow: hidden;
   padding: 32px;
   color: var(--white);
   border-radius: var(--radius-xl);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.product-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 16px 36px rgba(27, 34, 60, 0.2);
 }
 
 .product-card--royal {
@@ -61,7 +62,7 @@
   background-color: var(--brand-midnight);
 }
 
-/* Outlined ring detail in place of the template's blob shapes */
+/* Outlined ring detail in place of the template's blob shapes; it widens on hover. */
 .product-card::after {
   content: '';
   position: absolute;
@@ -72,11 +73,23 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50%;
   pointer-events: none;
+  transition: transform 700ms var(--ease-out);
 }
 
 .product-card-icon {
   margin-bottom: 28px;
   color: var(--white);
+  transition: transform var(--dur-hover) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .product-cell:hover .product-card::after {
+    transform: scale(1.18);
+  }
+
+  .product-cell:hover .product-card-icon {
+    transform: translateY(-3px);
+  }
 }
 
 .product-card-title {

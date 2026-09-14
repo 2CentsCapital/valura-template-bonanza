@@ -1,3 +1,4 @@
+import { revealDelay } from '../motion';
 import LeadForm from './LeadForm';
 import StoreButtons from './StoreButtons';
 import { IconCheck } from './icons';
@@ -16,17 +17,19 @@ export default function Integrations() {
       <div className="container">
         <div className="integrations-split">
           <div className="integrations-info">
-            <p className="badge badge--dark integrations-badge">Open your global desk</p>
-            <h2 id="open-title" className="integrations-form-title">
+            <p className="badge badge--dark integrations-badge" data-reveal="">
+              Open your global desk
+            </p>
+            <h2 id="open-title" className="integrations-form-title" data-reveal="" style={revealDelay(80)}>
               Ready to take your portfolio <span className="accent">global?</span>
             </h2>
-            <p className="integrations-form-subtitle">
+            <p className="integrations-form-subtitle" data-reveal="" style={revealDelay(160)}>
               Leave a few details. A Bonanza &amp; Valura.Ai specialist will reach out within one business
               day.
             </p>
             <ul className="benefits-list">
-              {POINTS.map((point) => (
-                <li key={point}>
+              {POINTS.map((point, k) => (
+                <li key={point} data-reveal="" style={revealDelay(220 + k * 70)}>
                   <span className="benefit-icon" aria-hidden="true">
                     <IconCheck size={16} strokeWidth={2.4} />
                   </span>
@@ -34,10 +37,12 @@ export default function Integrations() {
                 </li>
               ))}
             </ul>
-            <StoreButtons tone="dark" />
+            <div data-reveal="" style={revealDelay(500)}>
+              <StoreButtons tone="dark" />
+            </div>
           </div>
 
-          <div className="form-card">
+          <div className="form-card" data-reveal="zoom" style={revealDelay(140)}>
             <LeadForm />
           </div>
         </div>

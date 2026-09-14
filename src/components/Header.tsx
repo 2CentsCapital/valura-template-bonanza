@@ -16,11 +16,20 @@ const DESKTOP_MIN_WIDTH = 1101;
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
 
   const closeMenu = useCallback((restoreFocus = false) => {
     setIsMenuOpen(false);
     if (restoreFocus) toggleRef.current?.focus();
+  }, []);
+
+  // A soft shadow fades in under the header once the page has scrolled.
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   useEffect(() => {
@@ -40,9 +49,9 @@ export default function Header() {
   }, [isMenuOpen, closeMenu]);
 
   return (
-    <header className="navbar-wrapper">
+    <header className={`navbar-wrapper${isScrolled ? ' is-scrolled' : ''}`}>
       <nav className="navbar container" aria-label="Primary">
-        {/* Approved joint artwork, placed whole. The only joint mark on the page. */}
+        {/* Approved joint artwork, placed whole and never animated. The only joint mark on the page. */}
         <a href="#top" className="logo-container">
           <img src={lockup} className="logo-img" alt={BRAND_NAME} width={294} height={160} />
         </a>

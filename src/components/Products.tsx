@@ -1,4 +1,5 @@
 import type { ComponentType, SVGProps } from 'react';
+import { revealDelay } from '../motion';
 import AnimatedLogos from './AnimatedLogos';
 import { IconChart, IconGlobe, IconLandmark, IconLayers, IconRocket, IconTicket } from './icons';
 import './Products.css';
@@ -56,11 +57,13 @@ export default function Products() {
     <section id="invest-in" className="products-wrapper" aria-labelledby="invest-in-title">
       <div className="products container">
         <div className="products-header">
-          <p className="badge products-badge">What you can hold</p>
-          <h2 id="invest-in-title" className="section-title">
+          <p className="badge products-badge" data-reveal="">
+            What you can hold
+          </p>
+          <h2 id="invest-in-title" className="section-title" data-reveal="" style={revealDelay(80)}>
             Six shelves. <span className="accent">One regulated roof.</span>
           </h2>
-          <p className="section-lead products-lead">
+          <p className="section-lead products-lead" data-reveal="" style={revealDelay(160)}>
             The full global menu, from blue-chip equities to income notes, under one IFSCA account. No
             second login, no overseas bank account, no scattered tax pack.
           </p>
@@ -68,16 +71,18 @@ export default function Products() {
 
         <ul className="products-grid">
           {SHELVES.map(({ Icon, title, text, tag }, i) => (
-            <li key={title} className={`product-card ${i % 2 === 0 ? 'product-card--royal' : 'product-card--midnight'}`}>
-              <Icon className="product-card-icon" size={32} strokeWidth={1.5} />
-              <h3 className="product-card-title">{title}</h3>
-              <p className="product-card-description">{text}</p>
-              <p className="product-card-tag">{tag}</p>
+            <li key={title} className="product-cell lift" data-reveal="" style={revealDelay((i % 3) * 90)}>
+              <article className={`product-card ${i % 2 === 0 ? 'product-card--royal' : 'product-card--midnight'}`}>
+                <Icon className="product-card-icon" size={32} strokeWidth={1.5} />
+                <h3 className="product-card-title">{title}</h3>
+                <p className="product-card-description">{text}</p>
+                <p className="product-card-tag">{tag}</p>
+              </article>
             </li>
           ))}
         </ul>
 
-        <div className="providers-panel">
+        <div className="providers-panel" data-reveal="">
           <div className="providers-text">
             <h3 className="providers-title">
               90+ global markets,

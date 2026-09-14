@@ -1,4 +1,5 @@
 import { AUTH_URL } from '../config';
+import { revealDelay } from '../motion';
 import { IconArrowRight, IconCheck } from './icons';
 import imgOpen from '../assets/media/how-open.webp';
 import imgFund from '../assets/media/how-fund.webp';
@@ -52,53 +53,58 @@ export default function AppFeatures() {
   return (
     <section id="how-it-works" className="app-features-wrapper" aria-labelledby="how-title">
       <div className="app-features-header container">
-        <p className="badge">How it works</p>
-        <h2 id="how-title" className="section-title">
+        <p className="badge" data-reveal="">
+          How it works
+        </p>
+        <h2 id="how-title" className="section-title" data-reveal="" style={revealDelay(80)}>
           Live in <span className="accent">under ten minutes.</span>
         </h2>
-        <p className="section-lead">
+        <p className="section-lead" data-reveal="" style={revealDelay(160)}>
           KYC once. Fund in rupees. Invest in dollars. Valura.Ai handles the IFSCA-regulated rails quietly
           underneath the Bonanza experience.
         </p>
       </div>
 
-      {STEPS.map((step, i) => (
-        <div key={step.step} className={`feature-section container ${i % 2 === 1 ? 'reverse' : ''}`}>
-          <div className="feature-info">
-            <div className="feature-badge-container">
-              <p className="badge">Step {step.step}</p>
+      {STEPS.map((step, i) => {
+        const reversed = i % 2 === 1;
+        return (
+          <div key={step.step} className={`feature-section container ${reversed ? 'reverse' : ''}`}>
+            <div className="feature-info" data-reveal={reversed ? 'right' : 'left'}>
+              <div className="feature-badge-container">
+                <p className="badge">Step {step.step}</p>
+              </div>
+              <h3 className="feature-title">{step.title}</h3>
+              <p className="feature-description">{step.description}</p>
+              <ul className="feature-list">
+                {step.points.map((point, k) => (
+                  <li key={point} className="feature-list-item" data-reveal="fade" style={revealDelay(260 + k * 90)}>
+                    <span className="check-icon" aria-hidden="true">
+                      <IconCheck size={16} strokeWidth={2.4} />
+                    </span>
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <h3 className="feature-title">{step.title}</h3>
-            <p className="feature-description">{step.description}</p>
-            <ul className="feature-list">
-              {step.points.map((point) => (
-                <li key={point} className="feature-list-item">
-                  <span className="check-icon" aria-hidden="true">
-                    <IconCheck size={16} strokeWidth={2.4} />
-                  </span>
-                  <span>{point}</span>
-                </li>
-              ))}
-            </ul>
+            <figure className="feature-visual" data-reveal="zoom" style={revealDelay(120)}>
+              <div className="feature-screenshot-container">
+                <img
+                  className="feature-screenshot"
+                  src={step.image.src}
+                  width={step.image.width}
+                  height={step.image.height}
+                  alt={step.image.alt}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              {step.image.caption && <figcaption className="visual-caption">{step.image.caption}</figcaption>}
+            </figure>
           </div>
-          <figure className="feature-visual">
-            <div className="feature-screenshot-container">
-              <img
-                className="feature-screenshot"
-                src={step.image.src}
-                width={step.image.width}
-                height={step.image.height}
-                alt={step.image.alt}
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-            {step.image.caption && <figcaption className="visual-caption">{step.image.caption}</figcaption>}
-          </figure>
-        </div>
-      ))}
+        );
+      })}
 
-      <div className="app-features-cta container">
+      <div className="app-features-cta container" data-reveal="">
         <a className="btn btn-primary btn-lg" href={AUTH_URL}>
           Start KYC in 3 minutes
           <IconArrowRight className="btn-icon" size={20} />

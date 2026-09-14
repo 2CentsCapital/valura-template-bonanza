@@ -47,6 +47,11 @@
   inset: 0;
 }
 
+.faq-lottie {
+  width: 100%;
+  height: 100%;
+}
+
 .faq-right {
   display: flex;
   flex-direction: column;
@@ -57,7 +62,7 @@
 .faq-accordion {
   background-color: var(--brand-powder);
   border-radius: var(--radius-lg);
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow var(--dur-hover) var(--ease-out);
 }
 
 .faq-accordion.open {
@@ -94,17 +99,26 @@
 .faq-icon {
   flex-shrink: 0;
   color: var(--ink);
-  transition: transform 0.3s ease;
+  transition:
+    transform var(--dur-hover) var(--ease-out),
+    translate var(--dur-ui) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .faq-trigger:hover .faq-icon {
+    translate: 0 2px;
+  }
 }
 
 .faq-accordion.open .faq-icon {
   transform: rotate(180deg);
 }
 
+/* Answers open by animating their row height, then the text settles in. */
 .faq-content {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 0.3s ease;
+  transition: grid-template-rows 380ms var(--ease-out);
 }
 
 .faq-accordion.open .faq-content {
@@ -121,6 +135,17 @@
   font-size: 16px;
   line-height: 1.65;
   color: var(--ink-soft);
+  opacity: 0;
+  translate: 0 -6px;
+  transition:
+    opacity var(--dur-ui) var(--ease-out),
+    translate 380ms var(--ease-out);
+}
+
+.faq-accordion.open .faq-answer {
+  opacity: 1;
+  translate: 0 0;
+  transition-delay: 80ms;
 }
 
 @media (max-width: 1024px) {

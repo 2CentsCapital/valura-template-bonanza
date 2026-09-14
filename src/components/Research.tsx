@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { revealDelay } from '../motion';
 import { IconDocument } from './icons';
 import './Research.css';
 
@@ -53,11 +54,13 @@ export default function Research() {
     <section id="research" className="research-wrapper" aria-labelledby="research-title">
       <div className="container">
         <div className="research-header">
-          <p className="badge badge--white">Research-led, not noise-led</p>
-          <h2 id="research-title" className="section-title">
+          <p className="badge badge--white" data-reveal="">
+            Research-led, not noise-led
+          </p>
+          <h2 id="research-title" className="section-title" data-reveal="" style={revealDelay(80)}>
             The research you trust, now with a <span className="accent">global lens.</span>
           </h2>
-          <p className="section-lead">
+          <p className="section-lead" data-reveal="" style={revealDelay(160)}>
             Bonanza is built on markets research and disciplined advice. Every global idea is filtered
             through the same lens (fit to your goal, risk and horizon first), then delivered in plain
             language, never as a 3 a.m. tip.
@@ -65,19 +68,21 @@ export default function Research() {
         </div>
 
         <ul className="research-grid">
-          {NOTES.map((note) => (
-            <li key={note.area} className="research-card">
-              <div className="research-card-top">
-                <p className="research-meta">
-                  <span>{note.area}</span>
-                  <span>{note.cadence}</span>
-                </p>
-                <p className="research-tag">{note.tag}</p>
-              </div>
-              <IconDocument className="research-icon" size={28} strokeWidth={1.6} />
-              <h3 className="research-title">{note.title}</h3>
-              <p className="research-text">{note.text}</p>
-              <p className="research-by">By the Valura research desk</p>
+          {NOTES.map((note, i) => (
+            <li key={note.area} className="research-cell lift" data-reveal="" style={revealDelay((i % 3) * 100)}>
+              <article className="research-card">
+                <div className="research-card-top">
+                  <p className="research-meta">
+                    <span>{note.area}</span>
+                    <span>{note.cadence}</span>
+                  </p>
+                  <p className="research-tag">{note.tag}</p>
+                </div>
+                <IconDocument className="research-icon" size={28} strokeWidth={1.6} />
+                <h3 className="research-title">{note.title}</h3>
+                <p className="research-text">{note.text}</p>
+                <p className="research-by">By the Valura research desk</p>
+              </article>
             </li>
           ))}
         </ul>

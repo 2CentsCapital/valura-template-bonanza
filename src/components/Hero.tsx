@@ -1,5 +1,8 @@
+import type { CSSProperties } from 'react';
 import { AUTH_URL } from '../config';
+import { revealDelay } from '../motion';
 import { IconArrowRight, IconChart, IconDiamond, IconGlobe } from './icons';
+import RollingNumber from './RollingNumber';
 import { ShaderBackground } from './ui/dq';
 import heroGlobe1000 from '../assets/media/hero-globe-1000.webp';
 import heroGlobe560 from '../assets/media/hero-globe-560.webp';
@@ -34,6 +37,10 @@ const STATS = [
   { value: '30 yrs', label: "In India's markets" },
 ];
 
+// Hero copy enters on load: the eyebrow, the headline line by line, then the
+// supporting copy. Nothing starts later than 400ms.
+const enterDelay = (ms: number) => ({ '--enter-delay': `${ms}ms` }) as CSSProperties;
+
 function CredentialList({ duplicate = false }: { duplicate?: boolean }) {
   return (
     <ul className="sponsors-marquee-content" aria-hidden={duplicate || undefined}>
@@ -54,29 +61,34 @@ export default function Hero() {
         <ShaderBackground className="hero-canvas" />
         <div className="hero container">
           <div className="hero-left">
-            <p className="hero-eyebrow">
+            <p className="hero-eyebrow hero-enter" style={enterDelay(0)}>
               <span>Bonanza powered by Valura.Ai</span>
               <span>Your global investing desk</span>
             </p>
-            <span className="hero-icon-bars" aria-hidden="true">
+            <span className="hero-icon-bars hero-enter" style={enterDelay(320)} aria-hidden="true">
               <IconChart size={72} strokeWidth={1.3} />
             </span>
             <h1 id="hero-title" className="hero-title">
-              Think investments.
-              <br />
-              <span className="hero-title-inline">
-                <span className="accent">Now think global.</span>
-                <span className="hero-icon-globe" aria-hidden="true">
-                  <IconGlobe size={46} strokeWidth={1.5} />
+              <span className="hero-line">
+                <span className="hero-line-inner" style={enterDelay(60)}>
+                  Think investments.
+                </span>
+              </span>{' '}
+              <span className="hero-line">
+                <span className="hero-line-inner hero-title-inline" style={enterDelay(160)}>
+                  <span className="accent">Now think global.</span>
+                  <span className="hero-icon-globe" aria-hidden="true">
+                    <IconGlobe size={46} strokeWidth={1.5} />
+                  </span>
                 </span>
               </span>
             </h1>
-            <p className="hero-description">
+            <p className="hero-description hero-enter" style={enterDelay(240)}>
               Bonanza has powered Indian investors for 30 years across broking, PMS, commodities and
               research. Now add the world: 4,000+ US stocks and ETFs, dollar income and pre-IPO, under
               one IFSCA-regulated GIFT City account, funded in rupees.
             </p>
-            <div className="hero-ctas">
+            <div className="hero-ctas hero-enter" style={enterDelay(320)}>
               <a className="btn btn-primary btn-lg" href={AUTH_URL}>
                 Open a global account
                 <IconArrowRight className="btn-icon" size={20} />
@@ -85,7 +97,7 @@ export default function Hero() {
                 See what you can hold
               </a>
             </div>
-            <ul className="hero-trust">
+            <ul className="hero-trust hero-enter" style={enterDelay(400)}>
               <li>IFSCA-regulated, GIFT IFSC</li>
               <li>Funded in rupees under LRS</li>
               <li>30 years in India&apos;s markets</li>
@@ -141,16 +153,28 @@ export default function Hero() {
 
       <section className="sponsors-wrapper" aria-label="Bonanza credentials">
         <div className="sponsors container">
-          <p className="sponsors-title">30 years, twin-regulated</p>
-          <div className="sponsors-marquee">
+          <p className="sponsors-title" data-reveal="">
+            30 years, twin-regulated
+          </p>
+          {/* Continuous marquee. Hover or keyboard focus pauses it; "Pause animations" in the footer stops it. */}
+          <div
+            className="sponsors-marquee"
+            data-reveal=""
+            style={revealDelay(80)}
+            tabIndex={0}
+            role="group"
+            aria-label="Credentials"
+          >
             <CredentialList />
             <CredentialList duplicate />
           </div>
-          <dl className="stats-row">
-            {STATS.map((stat) => (
+          <dl className="stats-row" data-reveal="" style={revealDelay(140)}>
+            {STATS.map((stat, i) => (
               <div className="stat" key={stat.label}>
                 <dt className="stat-label">{stat.label}</dt>
-                <dd className="stat-value">{stat.value}</dd>
+                <dd className="stat-value">
+                  <RollingNumber value={stat.value} delay={180 + i * 120} />
+                </dd>
               </div>
             ))}
           </dl>

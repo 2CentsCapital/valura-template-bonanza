@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { AUTH_URL } from '../config';
+import { revealDelay } from '../motion';
 import { IconArrowRight } from './icons';
 import LoopVideo from './LoopVideo';
 import imgCompanies from '../assets/media/why-companies.webp';
@@ -79,11 +80,13 @@ export default function Features() {
     <section id="why-global" className="features-wrapper" aria-labelledby="why-global-title">
       <div className="features container">
         <div className="features-header">
-          <p className="badge features-badge">Why global, why now</p>
-          <h2 id="why-global-title" className="section-title">
+          <p className="badge features-badge" data-reveal="">
+            Why global, why now
+          </p>
+          <h2 id="why-global-title" className="section-title" data-reveal="" style={revealDelay(80)}>
             A portfolio with <span className="accent">two engines.</span>
           </h2>
-          <div className="features-lede">
+          <div className="features-lede" data-reveal="" style={revealDelay(160)}>
             <p>
               India built your wealth. The rest of the world can diversify it. Eight of the ten largest
               companies on earth trade outside India, and in past decades a dollar leg has often steadied
@@ -95,25 +98,27 @@ export default function Features() {
               markets expertise you already trust with Bonanza: same conviction, wider canvas.
             </p>
           </div>
-          <a className="btn btn-primary" href={AUTH_URL}>
+          <a className="btn btn-primary" href={AUTH_URL} data-reveal="" style={revealDelay(240)}>
             Open a global account
             <IconArrowRight className="btn-icon" size={20} />
           </a>
         </div>
 
         <div className="features-grid-wide">
-          {CARDS.map((card) => (
-            <article key={card.index} className="feature-card">
-              <div className="card-text">
-                <span className="card-index" aria-hidden="true">
-                  {card.index}
-                </span>
-                <h3 className="card-title">{card.title}</h3>
-                <p className="card-description">{card.text}</p>
-                <p className="card-meta">{card.meta}</p>
-              </div>
-              <div className="card-image-container">{card.media}</div>
-            </article>
+          {CARDS.map((card, i) => (
+            <div key={card.index} className="feature-cell lift" data-reveal="" style={revealDelay((i % 2) * 110)}>
+              <article className="feature-card">
+                <div className="card-text">
+                  <span className="card-index" aria-hidden="true">
+                    {card.index}
+                  </span>
+                  <h3 className="card-title">{card.title}</h3>
+                  <p className="card-description">{card.text}</p>
+                  <p className="card-meta">{card.meta}</p>
+                </div>
+                <div className="card-image-container">{card.media}</div>
+              </article>
+            </div>
           ))}
         </div>
       </div>
