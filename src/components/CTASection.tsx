@@ -1,28 +1,44 @@
+import { AUTH_URL } from '../config';
+import { IconArrowRight } from './icons';
+import quoteImage from '../assets/media/quote-portfolio.webp';
 import './CTASection.css';
-import laptopGif from '../assets/Graphics/laptop.gif.gif';
 
 export default function CTASection() {
   return (
-    <section className="cta-section-wrapper" data-node-id="93:902">
-      <div className="cta-section" data-node-id="93:903">
-        {/* Left Side */}
-        <div className="cta-left" data-node-id="93:904">
-          <h2 className="cta-title" data-node-id="93:906">
-            Your wealth journey starts today.
-          </h2>
-          <p className="cta-desc">
-            Join thousands of investors building diversified portfolios through expert research, innovative investment products, and trusted financial guidance.
+    <section className="cta-section-wrapper on-dark">
+      <div className="cta-section container">
+        <div className="cta-left">
+          <blockquote className="cta-quote">
+            <p>
+              Thirty years building wealth in India. Now hold one corner of your portfolio in dollars, on a
+              regulated rail, from GIFT City.
+            </p>
+          </blockquote>
+          <p className="cta-byline">
+            Bonanza powered by Valura.Ai. A global desk built into the markets house you already trust.
           </p>
           <div className="cta-buttons-container">
-            <button className="cta-primary-btn" onClick={() => alert('Opening an investment account...')}>Open an Investment Account</button>
-            <button className="cta-secondary-btn" onClick={() => alert('Connecting with an expert...')}>Talk to an Investment Expert</button>
+            <a className="btn btn-primary" href={AUTH_URL}>
+              Open a global account
+              <IconArrowRight className="btn-icon" size={20} />
+            </a>
+            <a className="btn btn-light" href="#open">
+              Talk to a specialist
+            </a>
           </div>
         </div>
 
-        {/* Right Side Illustration */}
-        <div className="cta-right" data-node-id="93:917">
-          <div className="cta-illustration-container" data-node-id="93:924">
-            <img src={laptopGif} className="cta-laptop-gif" alt="Laptop trading dashboard" />
+        <div className="cta-right">
+          <div className="cta-illustration-container">
+            <img
+              className="cta-image"
+              src={quoteImage}
+              width={900}
+              height={826}
+              loading="lazy"
+              decoding="async"
+              alt=""
+            />
           </div>
         </div>
       </div>

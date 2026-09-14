@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 
 const VERT = `attribute vec2 a_position;
 void main() {
@@ -13,7 +13,7 @@ precision mediump float;
 
 uniform vec3 u_colors[8];
 // Seven packed vectors + eight colour vectors = 15 fragment uniform vectors,
-// one below WebGL1's guaranteed minimum. Macros preserve the public u_* API.
+// one below the minimum every WebGL1 implementation must support. Macros preserve the public u_* API.
 uniform vec4 u_scene;      // resolution.xy, time, colour count
 uniform vec4 u_shape;      // scale, intensity, paramA, warp
 uniform vec4 u_surface;    // detail, contrast, brightness, saturation
@@ -40,7 +40,7 @@ uniform vec4 u_cursor;
 #ifdef GL_FRAGMENT_PRECISION_HIGH
 #define u_seed u_transform.x
 #else
-// Keep hash inputs inside mediump's guaranteed ±2^14 range.
+// Keep hash inputs inside the range mediump can represent (2^14 either side).
 #define u_seed mod(u_transform.x, 31.0)
 #endif
 #define u_rotate u_transform.y
@@ -187,7 +187,7 @@ void main() {
     / min(u_resolution.x, u_resolution.y);
   float cursorMask = 0.0;
 
-  // Cursor modes 1–3 are local distortions. Push shifts the same screen-space
+  // Cursor modes 1 to 3 are local distortions. Push shifts the same screen-space
   // coordinates before field transforms, so Zoom/Rotate don't change its feel.
   if (u_cursorPresence > 0.001) {
     // u_mouse is normalized to -1..1 in canvas space. Convert it to the same
@@ -271,21 +271,22 @@ void main() {
 }
 `
 
+// Bonanza powder blue (#DFE9F2), white and light tints of royal blue (#2D57A6).
 const UNIFORMS = {
-  colors: [[0.4,0.7,0.55],[0.6,0.85,0.7],[0.8,0.95,0.8],[0.96,1,0.9],[0.96,1,0.9],[0.96,1,0.9],[0.96,1,0.9],[0.96,1,0.9]] as [number, number, number][],
+  colors: [[0.875,0.914,0.949],[1,1,1],[0.8,0.855,0.93],[0.93,0.955,0.98],[1,1,1],[1,1,1],[1,1,1],[1,1,1]] as [number, number, number][],
   colorCount: 4,
   scale: 0.580,
   intensity: 0.200,
   paramA: 0.500,
   warp: 0.000,
   detail: 2.400,
-  contrast: 0.807,
-  brightness: 0.200,
+  contrast: 1.000,
+  brightness: 0.000,
   saturation: 1.000,
   hue: 0.0000,
   vignette: 0.000,
   blur: 0.0000,
-  grain: 0.014,
+  grain: 0.010,
   seed: 707.0,
   rotate: 2.5133,
   offsetX: 0.060,
@@ -301,7 +302,7 @@ const UNIFORMS = {
 
 const pendingContextReleases = new WeakMap<HTMLCanvasElement, number>()
 
-export function ShaderBackground({ className }: { className?: string }) {
+function ShaderCanvas({ className }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -327,6 +328,11 @@ export function ShaderBackground({ className }: { className?: string }) {
     gl.linkProgram(program)
     gl.deleteShader(vertexShader)
     gl.deleteShader(fragmentShader)
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+      // Leave the CSS gradient in place if the GPU cannot build the shader.
+      gl.deleteProgram(program)
+      return
+    }
     gl.useProgram(program)
 
     const buf = gl.createBuffer()
@@ -403,7 +409,10 @@ export function ShaderBackground({ className }: { className?: string }) {
     let inView = true
     let disposed = false
     const start = performance.now()
-    const timeAnimated = Math.abs(UNIFORMS.timeScale) > 0.0001
+    // Reduced motion: draw a single still frame instead of an animated field.
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    const timeScale = reduceMotion ? 0 : UNIFORMS.timeScale
+    const timeAnimated = Math.abs(timeScale) > 0.0001
 
     const resizeCanvas = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2)
@@ -518,7 +527,7 @@ export function ShaderBackground({ className }: { className?: string }) {
         uni.scene,
         width,
         height,
-        ((now - start) / 1000) * UNIFORMS.timeScale,
+        ((now - start) / 1000) * timeScale,
         UNIFORMS.colorCount,
       )
       gl.uniform4f(
@@ -575,6 +584,29 @@ export function ShaderBackground({ className }: { className?: string }) {
   }, [])
 
   return (
-    <canvas ref={canvasRef} className={className} style={{ display: "block", width: "100%", height: "100%" }} />
+    <canvas
+      ref={canvasRef}
+      className={className}
+      aria-hidden="true"
+      style={{ display: "block", width: "100%", height: "100%" }}
+    />
   )
+}
+
+// The WebGL field starts once the browser is idle so it never competes with
+// first paint. Until then the hero shows its CSS gradient. Rendering already
+// pauses while the canvas is offscreen or the tab is hidden.
+export function ShaderBackground({ className }: { className?: string }) {
+  const [ready, setReady] = useState(false)
+
+  useEffect(() => {
+    if (typeof window.requestIdleCallback === "function") {
+      const id = window.requestIdleCallback(() => setReady(true), { timeout: 1500 })
+      return () => window.cancelIdleCallback(id)
+    }
+    const timer = window.setTimeout(() => setReady(true), 300)
+    return () => window.clearTimeout(timer)
+  }, [])
+
+  return ready ? <ShaderCanvas className={className} /> : null
 }

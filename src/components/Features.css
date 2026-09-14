@@ -1,95 +1,112 @@
 .features-wrapper {
-  background-color: #ffffff;
   padding: 100px 0;
-  display: flex;
-  justify-content: center;
-  width: 100%;
+  background-color: var(--white);
 }
 
 .features {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  max-width: 1300px;
-  padding: 0 54px;
 }
 
 .features-header {
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 860px;
+  margin-bottom: 56px;
   text-align: center;
-  margin-bottom: 64px;
 }
 
 .features-badge {
   margin-bottom: 24px;
 }
 
-.features-title {
-  font-family: var(--font-serif);
-  font-size: 48px;
-  color: var(--color-dark);
-  line-height: 1.2;
-  margin: 0;
-  max-width: 800px;
-  letter-spacing: -1px;
+.features-lede {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 24px 0 32px;
+  font-size: clamp(16px, 1.3vw, 18px);
+  line-height: 1.65;
+  color: var(--ink-soft);
 }
 
-.features-grid {
+.features-grid-wide {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 24px;
   width: 100%;
-  margin-bottom: 24px;
 }
 
 .feature-card {
-  background-color: var(--color-bg-light);
-  border-radius: 24px;
-  padding: 32px 32px 0;
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
-  min-height: 370px;
-  position: relative;
+  padding: 32px 32px 0;
+  background-color: var(--brand-powder);
+  border-radius: var(--radius-lg);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .feature-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
+  box-shadow: var(--shadow);
 }
 
 .card-text {
+  position: relative;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.card-index {
+  position: absolute;
+  top: -8px;
+  right: 0;
+  font-size: 30px;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--brand-royal);
 }
 
 .card-title {
-  font-family: var(--font-serif);
-  font-size: 32px;
   margin: 0 0 12px;
-  color: var(--color-dark);
+  padding-right: 56px;
+  font-size: clamp(22px, 2vw, 27px);
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--ink);
 }
 
 .card-description {
-  font-family: var(--font-sans);
   font-size: 16px;
-  line-height: 1.5;
-  color: var(--color-dark);
-  opacity: 0.8;
-  margin: 0;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.card-meta {
+  margin-top: 16px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  background-color: var(--white);
+  border-radius: 100px;
 }
 
 .card-image-container {
   position: relative;
-  margin-top: 24px;
-  margin-left: -32px;
-  margin-right: -32px;
-  width: calc(100% + 64px);
   flex-shrink: 0;
+  height: 240px;
+  margin: 28px -32px 0;
+  overflow: hidden;
+  background-color: var(--white);
 }
 
 .card-image-container::before {
@@ -98,74 +115,43 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 60px;
-  background: linear-gradient(to bottom, var(--color-bg-light) 0%, transparent 100%);
   z-index: 1;
+  height: 48px;
+  background: linear-gradient(to bottom, var(--brand-powder) 0%, rgba(223, 233, 242, 0) 100%);
   pointer-events: none;
-  transition: transform 0.3s ease;
 }
 
 .card-image {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
   display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   transition: transform 0.3s ease;
+}
+
+.card-image--contain {
+  object-fit: contain;
 }
 
 .feature-card:hover .card-image {
   transform: scale(1.03);
 }
 
-.feature-card:hover .card-image-container::before {
-  transform: scale(1.03) translateY(-3px);
-}
-
-/* Row 2 layout (two wide cards) */
-.features-grid-wide {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-  width: 100%;
-}
-
-.feature-card-wide {
-  min-height: 380px;
-}
-
-.feature-card-wide .card-image {
-  height: 240px;
-}
-
-/* Responsive adjustments */
-@media (max-width: 1024px) {
-  .features-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .features-title {
-    font-size: 36px;
-  }
-}
-
 @media (max-width: 768px) {
-  .features {
-    padding: 0 24px;
+  .features-wrapper {
+    padding: 64px 0;
   }
-  
-  .features-grid {
-    grid-template-columns: 1fr;
-  }
-  
+
   .features-grid-wide {
     grid-template-columns: 1fr;
   }
-  
-  .features-title {
-    font-size: 28px;
-  }
-  
+
   .feature-card {
-    min-height: 320px;
+    padding: 24px 24px 0;
+  }
+
+  .card-image-container {
+    height: 200px;
+    margin: 24px -24px 0;
   }
 }
