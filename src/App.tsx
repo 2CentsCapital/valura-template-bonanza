@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { initReveals } from './motion';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Features from './components/Features';
@@ -11,6 +13,9 @@ import Integrations from './components/Integrations';
 import Footer from './components/Footer';
 
 function App() {
+  // Runs after every section has mounted, so all reveal targets are in the DOM.
+  useEffect(() => initReveals(), []);
+
   return (
     <>
       <a className="skip-link" href="#main">

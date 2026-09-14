@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useMotionPaused } from '../motion';
 
 type Props = {
   mp4: string;
@@ -9,18 +10,25 @@ type Props = {
   className?: string;
 };
 
-// Decorative muted loop. Sources only load once the video is near the viewport,
-// playback pauses offscreen, and visitors who prefer reduced motion only ever
-// see the poster frame.
+// Decorative muted loop. It plays for every visitor, including under reduced
+// motion. Sources only load once the video is near the viewport; playback pauses
+// offscreen, while the tab is hidden, and when "Pause animations" is on (the
+// poster or the current frame then stays in place).
 export default function LoopVideo({ mp4, webm, poster, width, height, className }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const paused = useMotionPaused();
   const [active, setActive] = useState(false);
   const [inView, setInView] = useState(false);
+  const [pageVisible, setPageVisible] = useState(() => document.visibilityState === 'visible');
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video || !('IntersectionObserver' in window)) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!video) return;
+    if (!('IntersectionObserver' in window)) {
+      setActive(true);
+      setInView(true);
+      return;
+    }
     const observer = new IntersectionObserver(
       ([entry]) => {
         setInView(entry.isIntersecting);
@@ -33,14 +41,20 @@ export default function LoopVideo({ mp4, webm, poster, width, height, className 
   }, []);
 
   useEffect(() => {
+    const onVisibility = () => setPageVisible(document.visibilityState === 'visible');
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => document.removeEventListener('visibilitychange', onVisibility);
+  }, []);
+
+  useEffect(() => {
     const video = videoRef.current;
     if (!video || !active) return;
-    if (inView) {
+    if (inView && pageVisible && !paused) {
       video.play().catch(() => undefined);
     } else {
       video.pause();
     }
-  }, [active, inView]);
+  }, [active, inView, pageVisible, paused]);
 
   return (
     <video

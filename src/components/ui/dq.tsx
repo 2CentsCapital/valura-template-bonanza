@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react"
+import { prefersReducedMotion, useMotionPaused } from "../../motion"
 
 const VERT = `attribute vec2 a_position;
 void main() {
@@ -302,8 +303,17 @@ const UNIFORMS = {
 
 const pendingContextReleases = new WeakMap<HTMLCanvasElement, number>()
 
-function ShaderCanvas({ className }: { className?: string }) {
+function ShaderCanvas({ className, paused }: { className?: string; paused: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const pausedRef = useRef(paused)
+  const kickRef = useRef<() => void>(() => undefined)
+
+  // "Pause animations" stops the render loop on the current frame; resuming
+  // continues from the same point in time.
+  useEffect(() => {
+    pausedRef.current = paused
+    kickRef.current()
+  }, [paused])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -408,14 +418,14 @@ function ShaderCanvas({ className }: { className?: string }) {
     let visible = document.visibilityState === "visible"
     let inView = true
     let disposed = false
-    const start = performance.now()
-    // Reduced motion: draw a single still frame instead of an animated field.
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    const timeScale = reduceMotion ? 0 : UNIFORMS.timeScale
+    let elapsed = 0
+    // The field keeps moving for every visitor; under reduced motion it drifts
+    // a little slower rather than stopping.
+    const timeScale = UNIFORMS.timeScale * (prefersReducedMotion() ? 0.6 : 1)
     const timeAnimated = Math.abs(timeScale) > 0.0001
 
     const resizeCanvas = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2)
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5)
       const rawWidth = Math.max(1, Math.round(bounds.width * dpr))
       const rawHeight = Math.max(1, Math.round(bounds.height * dpr))
       const pixelScale = Math.min(
@@ -435,6 +445,18 @@ function ShaderCanvas({ className }: { className?: string }) {
       if (!disposed && visible && inView && raf === 0) {
         raf = requestAnimationFrame(render)
       }
+    }
+
+    kickRef.current = () => {
+      if (!pausedRef.current) {
+        requestRender()
+        return
+      }
+      if (raf !== 0) {
+        cancelAnimationFrame(raf)
+        raf = 0
+      }
+      lastNow = null
     }
 
     const updatePointerTarget = () => {
@@ -516,6 +538,7 @@ function ShaderCanvas({ className }: { className?: string }) {
       if (disposed || !visible || !inView || !canvas || !gl) return
       const dt = lastNow === null ? 0 : Math.min((now - lastNow) / 1000, 0.1)
       lastNow = now
+      if (!pausedRef.current) elapsed += dt * timeScale
       const follow = 1 - Math.exp(-12 * dt)
       mouseX += (targetX - mouseX) * follow
       mouseY += (targetY - mouseY) * follow
@@ -527,7 +550,7 @@ function ShaderCanvas({ className }: { className?: string }) {
         uni.scene,
         width,
         height,
-        ((now - start) / 1000) * timeScale,
+        elapsed,
         UNIFORMS.colorCount,
       )
       gl.uniform4f(
@@ -549,12 +572,13 @@ function ShaderCanvas({ className }: { className?: string }) {
         Math.abs(targetX - mouseX) > 0.001 ||
         Math.abs(targetY - mouseY) > 0.001 ||
         Math.abs(targetPresence - cursorPresence) > 0.001
-      if (timeAnimated || pointerSettling) requestRender()
+      if (!pausedRef.current && (timeAnimated || pointerSettling)) requestRender()
       else lastNow = null
     }
     requestRender()
     return () => {
       disposed = true
+      kickRef.current = () => undefined
       cancelAnimationFrame(raf)
       resizeObserver.disconnect()
       intersectionObserver.disconnect()
@@ -594,9 +618,11 @@ function ShaderCanvas({ className }: { className?: string }) {
 }
 
 // The WebGL field starts once the browser is idle so it never competes with
-// first paint. Until then the hero shows its CSS gradient. Rendering already
-// pauses while the canvas is offscreen or the tab is hidden.
+// first paint. Until then the hero shows its CSS gradient. Rendering pauses
+// while the canvas is offscreen, while the tab is hidden and while "Pause
+// animations" is on. The device pixel ratio is capped at 1.5.
 export function ShaderBackground({ className }: { className?: string }) {
+  const paused = useMotionPaused()
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
@@ -608,5 +634,5 @@ export function ShaderBackground({ className }: { className?: string }) {
     return () => window.clearTimeout(timer)
   }, [])
 
-  return ready ? <ShaderCanvas className={className} /> : null
+  return ready ? <ShaderCanvas className={className} paused={paused} /> : null
 }

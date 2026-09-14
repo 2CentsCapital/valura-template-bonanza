@@ -136,3 +136,15 @@ export const IconDiamond = (p: IconProps) => (
     <path d="M12 4 20 12 12 20 4 12Z" />
   </svg>
 );
+
+export const IconPause = (p: IconProps) => (
+  <svg {...svgProps(p)}>
+    <path d="M9 5.5v13M15 5.5v13" />
+  </svg>
+);
+
+export const IconPlay = (p: IconProps) => (
+  <svg {...svgProps(p)}>
+    <path d="M8 5.5v13l10.5-6.5Z" />
+  </svg>
+);

@@ -1,7 +1,10 @@
 import { AUTH_URL, BONANZA_IFSC_URL, VALURA_URL } from '../config';
+import MotionToggle from './MotionToggle';
 import StoreButtons from './StoreButtons';
 import './Footer.css';
 
+// The footer is deliberately static: legal and risk text is never hidden
+// behind an entrance animation.
 export default function Footer() {
   const year = new Date().getFullYear();
 
@@ -125,7 +128,10 @@ export default function Footer() {
 
         <div className="footer-bottom-copyright">
           <p>&copy; {year} Bonanza powered by Valura.Ai. All rights reserved.</p>
-          <p>Think investments. Now think global.</p>
+          <div className="footer-bottom-end">
+            <p>Think investments. Now think global.</p>
+            <MotionToggle />
+          </div>
         </div>
       </div>
     </footer>

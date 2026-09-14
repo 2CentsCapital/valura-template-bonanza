@@ -25,7 +25,10 @@
   border: 1px solid var(--brand-midnight);
   color: var(--white);
   text-decoration: none;
-  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+  transition:
+    transform var(--dur-ui) var(--ease-out),
+    background-color var(--dur-ui) var(--ease-out),
+    border-color var(--dur-ui) var(--ease-out);
 }
 
 .store-btn:hover {

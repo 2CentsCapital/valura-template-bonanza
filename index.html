@@ -3,6 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Applied before first paint: reveal-ready styling, and the visitor's saved
+      // "Pause animations" choice (see src/motion.ts).
+      (function () {
+        var root = document.documentElement;
+        root.classList.add('motion-ready');
+        try {
+          if (window.localStorage.getItem('bonanza-motion') === 'paused') {
+            root.setAttribute('data-motion', 'paused');
+          }
+        } catch (error) {
+          // Storage unavailable: motion runs.
+        }
+      })();
+    </script>
     <title>Bonanza powered by Valura.Ai | Think investments. Now think global.</title>
     <meta
       name="description"
