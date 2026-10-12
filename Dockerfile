@@ -9,6 +9,9 @@ COPY package.json package-lock.json ./
 RUN npm ci
 
 COPY . .
+# Optional Google Tag Manager container, e.g. --build-arg VITE_GTM_ID=GTM-XXXXXXX
+ARG VITE_GTM_ID=
+ENV VITE_GTM_ID=$VITE_GTM_ID
 RUN npm run build
 
 # ---------- Runtime: serve the static build with nginx on port 80 ----------

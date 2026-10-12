@@ -84,6 +84,28 @@
   color: var(--white);
 }
 
+.footer-grievance {
+  margin-bottom: 14px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.footer-grievance a,
+.footer-legal-links a {
+  color: var(--white);
+  text-underline-offset: 2px;
+}
+
+.footer-legal-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 .footer-risk {
   margin-bottom: 14px;
   font-size: 14px;

@@ -34,7 +34,7 @@ const STATS = [
   { value: '90+', label: 'Global markets, one account' },
   { value: '4,000+', label: 'US stocks & ETFs, fractional' },
   { value: '1,700+', label: 'Bonanza outlets across 600+ cities' },
-  { value: '30 yrs', label: "In India's markets" },
+  { value: '30+ yrs', label: "In India's markets" },
 ];
 
 // Hero copy enters on load: the eyebrow, the headline line by line, then the
@@ -84,7 +84,7 @@ export default function Hero() {
               </span>
             </h1>
             <p className="hero-description hero-enter" style={enterDelay(240)}>
-              Bonanza has powered Indian investors for 30 years across broking, PMS, commodities and
+              Bonanza has powered Indian investors for 30+ years across broking, PMS, commodities and
               research. Now add the world: 4,000+ US stocks and ETFs, dollar income and pre-IPO, under
               one IFSCA-regulated GIFT City account, funded in rupees.
             </p>
@@ -100,7 +100,7 @@ export default function Hero() {
             <ul className="hero-trust hero-enter" style={enterDelay(400)}>
               <li>IFSCA-regulated, GIFT IFSC</li>
               <li>Funded in rupees under LRS</li>
-              <li>30 years in India&apos;s markets</li>
+              <li>30+ years in India&apos;s markets</li>
             </ul>
           </div>
 
@@ -154,7 +154,7 @@ export default function Hero() {
       <section className="sponsors-wrapper" aria-label="Bonanza credentials">
         <div className="sponsors container">
           <p className="sponsors-title" data-reveal="">
-            30 years, twin-regulated
+            30+ years, twin-regulated
           </p>
           {/* Continuous marquee. Hover or keyboard focus pauses it; "Pause animations" in the footer stops it. */}
           <div

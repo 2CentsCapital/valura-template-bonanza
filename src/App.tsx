@@ -11,6 +11,7 @@ import Trust from './components/Trust';
 import FAQ from './components/FAQ';
 import Integrations from './components/Integrations';
 import Footer from './components/Footer';
+import StickyCta from './components/StickyCta';
 
 function App() {
   // Runs after every section has mounted, so all reveal targets are in the DOM.
@@ -34,6 +35,7 @@ function App() {
         <Integrations />
       </main>
       <Footer />
+      <StickyCta />
     </>
   );
 }

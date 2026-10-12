@@ -1,0 +1,39 @@
+.sticky-cta {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .sticky-cta {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 900;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 10px;
+    padding: 12px var(--gutter) calc(12px + env(safe-area-inset-bottom, 0px));
+    background-color: rgba(255, 255, 255, 0.96);
+    border-top: 1px solid var(--line);
+    box-shadow: 0 -10px 30px rgba(27, 34, 60, 0.1);
+    transform: translateY(110%);
+    visibility: hidden;
+    transition:
+      transform var(--dur-hover) var(--ease-out),
+      visibility 0s linear var(--dur-hover);
+  }
+
+  .sticky-cta.is-visible {
+    transform: translateY(0);
+    visibility: visible;
+    transition:
+      transform var(--dur-hover) var(--ease-out),
+      visibility 0s;
+  }
+
+  .sticky-cta .btn {
+    padding: 13px 16px;
+    font-size: 15px;
+    white-space: nowrap;
+  }
+}

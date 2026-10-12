@@ -5,7 +5,7 @@ import { IconCheck } from './icons';
 import './Integrations.css';
 
 const POINTS = [
-  'Live account in under 10 minutes',
+  'Paperless KYC, fully online',
   'Funded in rupees under LRS',
   'One consolidated INR + USD view',
   'Research-led guidance, start to finish',

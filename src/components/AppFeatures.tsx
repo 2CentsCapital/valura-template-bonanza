@@ -18,7 +18,7 @@ type Step = {
 const STEPS: Step[] = [
   {
     step: '01',
-    title: 'Open in 3 minutes',
+    title: 'Open online in minutes',
     description: 'Digital KYC with PAN and Aadhaar.',
     points: ['We pre-fill what we can', 'No paperwork trip', 'No re-scanning'],
     image: { src: imgOpen, width: 444, height: 444, alt: 'An investor completing digital KYC on a laptop' },
@@ -57,7 +57,7 @@ export default function AppFeatures() {
           How it works
         </p>
         <h2 id="how-title" className="section-title" data-reveal="" style={revealDelay(80)}>
-          Live in <span className="accent">under ten minutes.</span>
+          From KYC to your first trade, <span className="accent">all online.</span>
         </h2>
         <p className="section-lead" data-reveal="" style={revealDelay(160)}>
           KYC once. Fund in rupees. Invest in dollars. Valura.Ai handles the IFSCA-regulated rails quietly
@@ -106,7 +106,7 @@ export default function AppFeatures() {
 
       <div className="app-features-cta container" data-reveal="">
         <a className="btn btn-primary btn-lg" href={AUTH_URL}>
-          Start KYC in 3 minutes
+          Start your KYC
           <IconArrowRight className="btn-icon" size={20} />
         </a>
         <a className="btn btn-secondary btn-lg" href="#open">

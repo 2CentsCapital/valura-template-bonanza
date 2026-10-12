@@ -21,7 +21,7 @@ const FAQ_ITEMS: FaqItem[] = [
   {
     question: 'Is it legal for an Indian resident to invest abroad this way?',
     answer:
-      "Yes. Rupees move under RBI's Liberalised Remittance Scheme (LRS) to an IFSCA-regulated broker-dealer at GIFT IFSC, the government-sanctioned route for resident Indians to access permitted global products. Resident Indians can invest up to $250,000 abroad each financial year under LRS.",
+      "Yes. Rupees move under RBI's Liberalised Remittance Scheme (LRS) to an IFSCA-regulated broker-dealer at GIFT IFSC, a permitted route for resident Indians to access global products. Resident Indians can invest up to $250,000 abroad each financial year under LRS.",
   },
   {
     question: 'How do I open an account?',
@@ -31,7 +31,7 @@ const FAQ_ITEMS: FaqItem[] = [
   {
     question: 'What does it cost?',
     answer:
-      'Zero account-opening fee. A flat per-trade commission on US equities (fractional or whole). Transparent FX on inward remittance. Product-level fees on structured notes and funds are disclosed in their term sheets. No hidden custody charges. The full schedule of fees and charges is disclosed at onboarding.',
+      'Zero account-opening fee. Brokerage on US stocks and ETFs (fractional or whole) is charged per trade and shown before you confirm each order. The FX rate on your rupee remittance is shown upfront. Product-level fees on structured notes and funds are disclosed in their term sheets. The full schedule of fees and charges is disclosed at onboarding.',
   },
   {
     question: 'Does TCS apply to my remittance?',

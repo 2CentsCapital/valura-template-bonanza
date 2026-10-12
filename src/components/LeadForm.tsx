@@ -3,9 +3,11 @@ import {
   AUTH_URL,
   LEAD_FROM_NAME,
   LEAD_SUBJECT,
+  PRIVACY_URL,
   WEB3FORMS_ENDPOINT,
   WEB3FORMS_KEY,
 } from '../config';
+import { getAttribution, track } from '../attribution';
 import { IconArrowRight, IconCheck } from './icons';
 
 type Field = 'name' | 'email' | 'phone';
@@ -61,6 +63,10 @@ export default function LeadForm() {
     data.append('access_key', WEB3FORMS_KEY);
     data.append('subject', LEAD_SUBJECT);
     data.append('from_name', LEAD_FROM_NAME);
+    // Campaign parameters and the page the lead came from, so the sales team
+    // can tell which ad or partner link produced it.
+    for (const [key, value] of Object.entries(getAttribution())) data.append(key, value);
+    data.append('landing_page', window.location.origin + window.location.pathname);
 
     setStatus('sending');
     try {
@@ -72,6 +78,8 @@ export default function LeadForm() {
       const result = (await response.json().catch(() => null)) as { success?: boolean; message?: string } | null;
       if (response.ok && result?.success) {
         setStatus('success');
+        // Conversion event for the ad platforms; carries no personal data.
+        track('lead_submit', { lead_interest: String(data.get('interest') || 'not_set') });
         requestAnimationFrame(() => successRef.current?.focus());
       } else {
         setStatus('error');
@@ -202,13 +210,18 @@ export default function LeadForm() {
       <input type="checkbox" name="botcheck" className="form-honeypot" tabIndex={-1} autoComplete="off" aria-hidden="true" />
 
       <button type="submit" className="btn btn-primary form-submit-btn" disabled={status === 'sending'}>
-        {status === 'sending' ? 'Sending...' : 'Contact us'}
+        {status === 'sending' ? 'Sending...' : 'Request a call back'}
         {status !== 'sending' && <IconArrowRight className="btn-icon" size={20} />}
       </button>
 
       <p className="form-disclaimer">
         By submitting, you agree to be contacted by Bonanza and Valura.Ai about this enquiry. We never sell
-        your data and there&apos;s no marketing list to unsubscribe from.
+        your data. See our{' '}
+        <a href={PRIVACY_URL} target="_blank" rel="noopener noreferrer">
+          privacy policy
+          <span className="sr-only"> (opens in a new tab)</span>
+        </a>
+        .
       </p>
     </form>
   );

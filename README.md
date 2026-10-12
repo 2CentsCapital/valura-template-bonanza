@@ -33,10 +33,11 @@ Bonanza brand book.
 | Trust and regulation | `src/components/Trust.tsx` |
 | FAQ | `src/components/FAQ.tsx` with `FaqLottie.tsx` |
 | Open your global desk (lead form, app download) | `src/components/Integrations.tsx`, `LeadForm.tsx`, `StoreButtons.tsx` |
-| Footer and legal | `src/components/Footer.tsx` with `MotionToggle.tsx` |
+| Footer and legal (grievance contact, privacy, terms, Bonanza IFSC disclaimer) | `src/components/Footer.tsx` with `MotionToggle.tsx` |
+| Sticky sign-up bar (phones only) | `src/components/StickyCta.tsx` |
 
-Links, store URLs and the Web3Forms key and subject live in `src/config.ts`. Motion controls live in
-`src/motion.ts`.
+Links, store URLs, legal URLs and the Web3Forms key and subject live in `src/config.ts`. Motion
+controls live in `src/motion.ts`. Campaign attribution lives in `src/attribution.ts`.
 
 ## Brand and compliance rules applied
 
@@ -120,6 +121,24 @@ healthcheck calls `http://127.0.0.1/`.
 the current landing host. Update them if the page moves to another hostname. Open-account and
 log-in links go to `https://bonanza.valura.ai/auth`.
 
+## Campaign attribution and analytics
+
+- UTM parameters and ad click ids (`gclid`, `gbraid`, `wbraid`, `fbclid`, `msclkid`, `li_fat_id`,
+  `ref`) on the arrival URL are kept in `localStorage` for 30 days. A later visit with new
+  parameters replaces them.
+- Every sign-up link to `https://bonanza.valura.ai/auth` carries them when clicked, and lead-form
+  submissions include them plus `landing_page`.
+- Events pushed to `window.dataLayer`: `signup_click` (`cta_label`, `cta_section`),
+  `app_store_click` (`store`, `cta_section`) and `lead_submit` (`lead_interest`).
+- Google Tag Manager loads only when a container id is set at build time:
+
+```bash
+docker build --build-arg VITE_GTM_ID=GTM-XXXXXXX -t bonanza-valura-landing .
+```
+
+Without it the page loads no third-party tags. Whether the web app at `bonanza.valura.ai` keeps
+the parameters it receives on `/auth` is outside this repo.
+
 ## Media and performance notes
 
 - Images are WebP, sized for twice their rendered size. Below-the-fold media is lazy-loaded.
@@ -135,7 +154,7 @@ log-in links go to `https://bonanza.valura.ai/auth`.
 
 Bonanza marketing approval runs on a three working day SLA. Before publishing, confirm:
 
-1. "30 years, twin-regulated" and "Twin-regulated. Single trail." framing (Bonanza under SEBI,
+1. "30+ years, twin-regulated" and "Twin-regulated. Single trail." framing (Bonanza under SEBI,
    Valura.Ai under IFSCA).
 2. Historical framing kept from the live page: "in past decades a dollar leg has often steadied
    Indian portfolios through rupee cycles" and "Historically, a modest global leg has improved
@@ -145,18 +164,22 @@ Bonanza marketing approval runs on a three working day SLA. Before publishing, c
    NVDA example card in the hero.
 5. Availability of the UK and Hong Kong equities and the global funds and REITs shelves.
 6. Service claims from the live page: reporting alongside the Bonanza portfolio, the consolidated
-   INR and USD tax statement, onshore-linked custody, "Live in under ten minutes" and "Open in 3
-   minutes", a response within one business day, and "We never sell your data".
-7. Fee statements in the FAQ (zero account-opening fee, flat per-trade commission, transparent FX,
-   no hidden custody charges).
-8. The research notes attributed to "the Valura research desk", which have no published documents
-   behind them.
+   INR and USD tax statement, onshore-linked custody, a response within one business day, and "We
+   never sell your data". The "ten minutes" and "3 minutes" timing claims were replaced with "Open
+   online in minutes".
+7. Fee statements in the FAQ: zero account-opening fee, per-trade brokerage shown before each
+   order, the FX rate shown upfront, product fees in term sheets, and the full schedule at
+   onboarding. The earlier "flat per-trade commission" and "no hidden custody charges" lines were
+   removed as unconfirmed.
+8. The research cards, now labelled "Example topic" with no publishing cadence, since there are no
+   published notes behind them yet.
 9. The network figure of 1,700+ outlets across 600+ cities from the brand book (the live page said
    1,900+ and 560+), and whether it needs an as-of date.
 10. Display of Bonanza Portfolio (IFSC) Private Limited's IFSCA registration (INZ000220432) and its
     role in this offer.
-11. The copyright holder line (the brand book prefers "Bonanza Portfolio Ltd.") and whether a
-    grievance officer block is required in the footer.
+11. The copyright holder line (the brand book prefers "Bonanza Portfolio Ltd.") and the footer
+    grievance line: Complaint Redressal Officer Mr. Vinod Kumar, cr@bonanzaonline.com, taken from
+    bonanzaifsc.com/grievancepolicy/.
 12. Bonanza's mandatory disclaimer and risk wording, still pending in the partner intake; the page
     uses the standard market-risk line.
 13. Compliance rewrites of live copy: "Earn in dollars while you wait" became "Seek income in

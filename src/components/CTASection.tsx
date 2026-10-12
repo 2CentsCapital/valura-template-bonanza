@@ -11,7 +11,7 @@ export default function CTASection() {
         <div className="cta-left">
           <blockquote className="cta-quote" data-reveal="">
             <p>
-              Thirty years building wealth in India. Now hold one corner of your portfolio in dollars, on a
+              Three decades building wealth in India. Now hold one corner of your portfolio in dollars, on a
               regulated rail, from GIFT City.
             </p>
           </blockquote>

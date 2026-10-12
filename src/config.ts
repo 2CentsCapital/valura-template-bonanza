@@ -12,6 +12,12 @@ export const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=ai.
 export const BONANZA_IFSC_URL = 'https://bonanzaifsc.com';
 export const VALURA_URL = 'https://valura.ai';
 
+// Legal pages for the India product and Bonanza's IFSC grievance policy.
+export const PRIVACY_URL = 'https://valura.ai/legal-india/our-privacy-policy';
+export const TERMS_URL = 'https://valura.ai/legal-india/terms-conditions';
+export const BONANZA_GRIEVANCE_URL = 'https://bonanzaifsc.com/grievancepolicy/';
+export const BONANZA_DISCLAIMER_URL = 'https://bonanzaifsc.com/disclaimer/';
+
 // Web3Forms lead capture. The access key is a public client-side key that the
 // live Valura cobrand landings already use.
 export const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';

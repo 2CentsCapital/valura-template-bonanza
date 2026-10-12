@@ -5,7 +5,6 @@ import './Research.css';
 
 type Note = {
   area: string;
-  cadence: string;
   tag: string;
   title: ReactNode;
   text: string;
@@ -16,7 +15,6 @@ type Note = {
 const NOTES: Note[] = [
   {
     area: 'Allocation',
-    cadence: 'Quarterly',
     tag: 'Strategy',
     title: (
       <>
@@ -27,7 +25,6 @@ const NOTES: Note[] = [
   },
   {
     area: 'Thematic',
-    cadence: 'Monthly',
     tag: 'Equity',
     title: (
       <>
@@ -38,7 +35,6 @@ const NOTES: Note[] = [
   },
   {
     area: 'Fixed Income',
-    cadence: 'Quarterly',
     tag: 'Yield',
     title: (
       <>
@@ -74,14 +70,13 @@ export default function Research() {
                 <div className="research-card-top">
                   <p className="research-meta">
                     <span>{note.area}</span>
-                    <span>{note.cadence}</span>
                   </p>
                   <p className="research-tag">{note.tag}</p>
                 </div>
                 <IconDocument className="research-icon" size={28} strokeWidth={1.6} />
                 <h3 className="research-title">{note.title}</h3>
                 <p className="research-text">{note.text}</p>
-                <p className="research-by">By the Valura research desk</p>
+                <p className="research-by">Example topic</p>
               </article>
             </li>
           ))}

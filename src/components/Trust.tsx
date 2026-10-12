@@ -30,8 +30,8 @@ export default function Trust() {
             <strong>Bonanza</strong> has been a broking and wealth house since 1994: a SEBI-registered stock
             broker across NSE, BSE and MCX, with depository, PMS, commodities and research, and 1,700+ outlets
             across 600+ cities. <strong>Valura.Ai</strong> (Valura India IFSC Limited) is a GIFT City
-            broker-dealer regulated by IFSCA, the government-sanctioned route for resident Indians to invest in
-            permitted global products.
+            broker-dealer regulated by IFSCA, a permitted route for resident Indians to invest in global
+            products under LRS.
           </p>
           <p data-reveal="" style={revealDelay(240)}>
             Your money moves on a regulated rail. Rupees move under LRS to an IFSC entity, securities settle

@@ -196,6 +196,11 @@
   color: var(--ink-muted);
 }
 
+.form-disclaimer a {
+  color: var(--brand-royal);
+  text-underline-offset: 2px;
+}
+
 .form-success {
   animation: reveal-up 560ms var(--ease-out) both;
   display: flex;

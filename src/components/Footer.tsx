@@ -1,4 +1,12 @@
-import { AUTH_URL, BONANZA_IFSC_URL, VALURA_URL } from '../config';
+import {
+  AUTH_URL,
+  BONANZA_DISCLAIMER_URL,
+  BONANZA_GRIEVANCE_URL,
+  BONANZA_IFSC_URL,
+  PRIVACY_URL,
+  TERMS_URL,
+  VALURA_URL,
+} from '../config';
 import MotionToggle from './MotionToggle';
 import StoreButtons from './StoreButtons';
 import './Footer.css';
@@ -108,6 +116,17 @@ export default function Footer() {
             </div>
           </div>
 
+          <p className="footer-grievance">
+            Grievances: Bonanza Portfolio (IFSC) Private Limited, Complaint Redressal Officer Mr. Vinod Kumar,{' '}
+            <a href="mailto:cr@bonanzaonline.com">cr@bonanzaonline.com</a>. Escalation levels and timelines are
+            set out in the{' '}
+            <a href={BONANZA_GRIEVANCE_URL} target="_blank" rel="noopener noreferrer">
+              grievance redressal policy
+              <span className="sr-only"> (opens in a new tab)</span>
+            </a>
+            .
+          </p>
+
           <p className="footer-risk">
             Investments in securities markets are subject to market risks. Read all related documents carefully
             before investing.
@@ -128,6 +147,23 @@ export default function Footer() {
 
         <div className="footer-bottom-copyright">
           <p>&copy; {year} Bonanza powered by Valura.Ai. All rights reserved.</p>
+          <ul className="footer-legal-links">
+            <li>
+              <a href={PRIVACY_URL} target="_blank" rel="noopener noreferrer">
+                Privacy policy<span className="sr-only"> (opens in a new tab)</span>
+              </a>
+            </li>
+            <li>
+              <a href={TERMS_URL} target="_blank" rel="noopener noreferrer">
+                Terms<span className="sr-only"> (opens in a new tab)</span>
+              </a>
+            </li>
+            <li>
+              <a href={BONANZA_DISCLAIMER_URL} target="_blank" rel="noopener noreferrer">
+                Bonanza IFSC disclaimer<span className="sr-only"> (opens in a new tab)</span>
+              </a>
+            </li>
+          </ul>
           <div className="footer-bottom-end">
             <p>Think investments. Now think global.</p>
             <MotionToggle />
