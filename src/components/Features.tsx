@@ -2,13 +2,11 @@ import type { ReactNode } from 'react';
 import { AUTH_URL } from '../config';
 import { revealDelay } from '../motion';
 import { IconArrowRight } from './icons';
-import LoopVideo from './LoopVideo';
 import imgCompanies from '../assets/media/why-companies.webp';
 import imgIncome from '../assets/media/why-income.webp';
 import imgPreIpo from '../assets/media/why-preipo.webp';
-import globeMp4 from '../assets/media/why-globe.mp4';
-import globeWebm from '../assets/media/why-globe.webm';
-import globePoster from '../assets/media/why-globe-poster.webp';
+import imgCurrency from '../assets/media/hero-globe-1000.webp';
+import imgCurrencySmall from '../assets/media/hero-globe-560.webp';
 import './Features.css';
 
 type Card = {
@@ -30,13 +28,16 @@ const CARDS: Card[] = [
     text: 'USD revenue, USD profits, USD valuations, denominated in dollars rather than rupees. Historically, a modest global leg has improved drawdown behaviour for some long-horizon Indian portfolios. Past performance is not indicative of future returns.',
     meta: 'Currency diversification',
     media: (
-      <LoopVideo
-        className="card-image card-image--contain"
-        mp4={globeMp4}
-        webm={globeWebm}
-        poster={globePoster}
-        width={640}
-        height={360}
+      <img
+        className="card-image card-image--currency"
+        src={imgCurrency}
+        srcSet={`${imgCurrencySmall} 560w, ${imgCurrency} 1000w`}
+        sizes="(max-width: 768px) 100vw, 420px"
+        width={1000}
+        height={1000}
+        loading="lazy"
+        decoding="async"
+        alt=""
       />
     ),
   },

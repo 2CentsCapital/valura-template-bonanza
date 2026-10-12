@@ -24,8 +24,8 @@ Bonanza brand book.
 | Live landing section | Component |
 | --- | --- |
 | Header and navigation | `src/components/Header.tsx` |
-| Hero, credentials strip, stats | `src/components/Hero.tsx` with `RollingNumber.tsx` |
-| Why global, why now | `src/components/Features.tsx` with `LoopVideo.tsx` |
+| Hero, credentials strip, stats | `src/components/Hero.tsx` with `LoopVideo.tsx` (spinning globe) and `RollingNumber.tsx` |
+| Why global, why now | `src/components/Features.tsx` |
 | What you can hold (six shelves) | `src/components/Products.tsx` with `AnimatedLogos.tsx` |
 | Research-led, not noise-led | `src/components/Research.tsx` |
 | Quote band | `src/components/CTASection.tsx` |
@@ -46,6 +46,9 @@ controls live in `src/motion.ts`. Campaign attribution lives in `src/attribution
 - Palette: royal blue `#2D57A6`, jade `#29A672`, goldenrod `#F19B19`, midnight blue `#1B223C`,
   powder blue `#DFE9F2`, red `#F55F6A`. No pure black, no white text on light grounds, no coloured
   text on coloured grounds. Motion introduces no new colours.
+- Buttons: the jade call to action is deepened to `#1F7E57` (hover `#1B6C4A`) so white text meets
+  WCAG AA at 5.0:1 (brand jade gives 3.1:1). The dark closing band uses a goldenrod button with
+  midnight text (7.0:1).
 - The approved joint lockup appears once, in the header, at the brand book's 80px web minimum on a
   single white ground, and is never animated. The footer uses the worded name. The favicon is the
   Bonanza icon from the brand kit.
@@ -70,9 +73,9 @@ becomes a static, centred set of chips.
 | Section | Motion |
 | --- | --- |
 | Header | Shadow fades in on scroll; the nav underline grows on hover and focus; the mobile menu eases open. The joint lockup never moves. |
-| Hero | WebGL background fades in and drifts; the headline rises line by line; eyebrow, copy, buttons and trust points follow within 400ms; the globe card eases in and floats; exchange chips and side cards drift. |
+| Hero | WebGL background fades in and drifts; the headline rises line by line; eyebrow, copy, buttons and trust points follow within 400ms; the spinning globe card eases in and floats; exchange chips and side cards drift. |
 | Credentials and stats | Continuous marquee with edge fades; the figures roll up digit by digit when they reach the viewport. |
-| Why global | Staggered heading and cards; cards lift on hover; globe loop video; images scale gently on hover. |
+| Why global | Staggered heading and cards; cards lift on hover; images scale gently on hover. |
 | What you can hold | Staggered cards that lift on hover; card rings widen on hover; shelf icons pulse in turn with sparkles along the beam. |
 | Research | Staggered heading and cards that lift on hover. |
 | Quote band | Staggered reveal; a slow drift inside the image frame. |
@@ -136,14 +139,27 @@ log-in links go to `https://bonanza.valura.ai/auth`.
 docker build --build-arg VITE_GTM_ID=GTM-XXXXXXX -t bonanza-valura-landing .
 ```
 
-Without it the page loads no third-party tags. Whether the web app at `bonanza.valura.ai` keeps
-the parameters it receives on `/auth` is outside this repo.
+Without it the page loads no third-party tags.
+
+Google Play links also get a `referrer` parameter built from the UTM tags and `gclid`, which
+Play hands to the installed app (Install Referrer API).
+
+The web app at `bonanza.valura.ai` keeps only `?ref=` and `?source=` from the `/auth` URL today
+(checked 12 Oct 2026 on `feat/bonanza-valura`), so sign-ups lose the campaign tags until it stores
+them. Lead-form submissions carry them already.
+
+## App store buttons
+
+`APP_STORE_URL` and `PLAY_STORE_URL` in `src/config.ts` are empty until the Bonanza co-branded
+app is listed. An empty store shows a "Coming soon" badge instead of a link; set the listing URL
+to turn it into a download button.
 
 ## Media and performance notes
 
 - Images are WebP, sized for twice their rendered size. Below-the-fold media is lazy-loaded.
-- The globe in "Why global" is a muted MP4/WebM loop with a poster. It only loads near the
-  viewport.
+- The hero globe is a muted MP4/WebM loop (640x360, cropped square on a white card that matches its
+  backdrop) with a poster. It pauses offscreen, in a hidden tab and under "Pause animations".
+  A sharper source would help on large retina screens; none was supplied with the template.
 - The hero WebGL background starts when the browser is idle.
 - The FAQ animation uses `@lottiefiles/dotlottie-react`. It is lazy-loaded on layouts 1025px and
   wider when the FAQ approaches the viewport. The player downloads its WASM runtime from jsDelivr

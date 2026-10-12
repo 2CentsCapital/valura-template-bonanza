@@ -134,6 +134,12 @@
   object-fit: contain;
 }
 
+/* Square render in a wide frame: keep the globe and both currency tiles. */
+.card-image--currency {
+  object-position: 50% 42%;
+  background-color: var(--brand-midnight);
+}
+
 @media (hover: hover) {
   .feature-cell:hover .card-image {
     transform: scale(1.04);

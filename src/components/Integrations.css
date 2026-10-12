@@ -133,7 +133,7 @@
 .form-group input:focus-visible,
 .form-group select:focus-visible {
   border-color: var(--cta);
-  box-shadow: 0 0 0 3px rgba(41, 166, 114, 0.3);
+  box-shadow: 0 0 0 3px rgba(31, 126, 87, 0.3);
   outline: none;
 }
 

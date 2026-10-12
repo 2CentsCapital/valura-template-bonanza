@@ -251,6 +251,13 @@
   animation: float-soft 8s var(--ease-float) 1s infinite;
 }
 
+/* The spinning glass globe loop. Its backdrop is pure white, so the card is
+   white too and the square crop meets it without a seam. */
+.hero-image--globe {
+  display: block;
+  background-color: var(--white);
+}
+
 @keyframes float-soft {
   0%,
   100% {

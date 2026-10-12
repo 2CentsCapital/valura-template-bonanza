@@ -2,10 +2,12 @@ import type { CSSProperties } from 'react';
 import { AUTH_URL } from '../config';
 import { revealDelay } from '../motion';
 import { IconArrowRight, IconChart, IconDiamond, IconGlobe } from './icons';
+import LoopVideo from './LoopVideo';
 import RollingNumber from './RollingNumber';
 import { ShaderBackground } from './ui/dq';
-import heroGlobe1000 from '../assets/media/hero-globe-1000.webp';
-import heroGlobe560 from '../assets/media/hero-globe-560.webp';
+import globeMp4 from '../assets/media/why-globe.mp4';
+import globeWebm from '../assets/media/why-globe.webm';
+import globePoster from '../assets/media/why-globe-poster.webp';
 import './Hero.css';
 
 const EXCHANGES = [
@@ -107,16 +109,13 @@ export default function Hero() {
           <div className="hero-right">
             <figure className="hero-visual">
               <div className="hero-visual-frame">
-                <img
-                  className="hero-image"
-                  src={heroGlobe1000}
-                  srcSet={`${heroGlobe560} 560w, ${heroGlobe1000} 1000w`}
-                  sizes="(max-width: 768px) 80vw, (max-width: 1100px) 440px, 430px"
-                  width={1000}
-                  height={1000}
-                  alt=""
-                  fetchPriority="high"
-                  decoding="async"
+                <LoopVideo
+                  className="hero-image hero-image--globe"
+                  mp4={globeMp4}
+                  webm={globeWebm}
+                  poster={globePoster}
+                  width={640}
+                  height={360}
                 />
                 <ul className="exchange-chips" aria-label="Global exchanges">
                   {EXCHANGES.map((exchange, i) => (

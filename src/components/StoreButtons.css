@@ -47,6 +47,29 @@
   border-color: var(--white);
 }
 
+/* Not a link yet: no hover lift, dashed outline. */
+.store-btn--soon,
+.store-btn--soon:hover,
+.store-cta--dark .store-btn--soon,
+.store-cta--dark .store-btn--soon:hover {
+  cursor: default;
+  transform: none;
+  background-color: transparent;
+  border-style: dashed;
+}
+
+.store-btn--soon,
+.store-btn--soon:hover {
+  border-color: var(--line-strong);
+  color: var(--ink);
+}
+
+.store-cta--dark .store-btn--soon,
+.store-cta--dark .store-btn--soon:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  color: var(--white);
+}
+
 .store-btn-text {
   display: flex;
   flex-direction: column;

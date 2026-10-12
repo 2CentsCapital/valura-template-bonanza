@@ -12,12 +12,13 @@
   --white: #ffffff;
 
   /* Calls to action, from the designer's 12 Oct styling pass: jade on light
-     surfaces, yellow on the dark closing band. Yellow carries midnight text,
-     never pure black. */
-  --cta: var(--brand-jade);
-  --cta-hover: #238d60;
-  --cta-yellow: #ffd200;
-  --cta-yellow-hover: #e6bd00;
+     surfaces, a gold button on the dark closing band. The jade is deepened so
+     white button text meets WCAG AA (5.0:1; brand jade is 3.1:1). The gold is
+     Bonanza goldenrod with midnight text (7.0:1), never pure black. */
+  --cta: #1f7e57;
+  --cta-hover: #1b6c4a;
+  --cta-gold: var(--brand-goldenrod);
+  --cta-gold-hover: #d9850a;
 
   --ink: #1b223c;
   --ink-soft: rgba(27, 34, 60, 0.82);
@@ -309,15 +310,15 @@ main:focus {
   border-color: var(--cta-hover);
 }
 
-.btn-yellow {
-  background-color: var(--cta-yellow);
-  border-color: var(--cta-yellow);
+.btn-gold {
+  background-color: var(--cta-gold);
+  border-color: var(--cta-gold);
   color: var(--ink);
 }
 
-.btn-yellow:hover {
-  background-color: var(--cta-yellow-hover);
-  border-color: var(--cta-yellow-hover);
+.btn-gold:hover {
+  background-color: var(--cta-gold-hover);
+  border-color: var(--cta-gold-hover);
 }
 
 .btn-secondary {

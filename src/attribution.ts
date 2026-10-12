@@ -95,6 +95,20 @@ export function track(event: string, params: Record<string, unknown> = {}): void
   w.dataLayer.push({ event, ...params });
 }
 
+// Google Play passes its `referrer` parameter to the installed app (the
+// Install Referrer API), so a campaign survives the install.
+export function withPlayReferrer(href: string): string {
+  const campaign = Object.entries(current).filter(([key]) => key.startsWith('utm_') || key === 'gclid');
+  if (campaign.length === 0) return href;
+  try {
+    const url = new URL(href);
+    if (!url.searchParams.has('referrer')) url.searchParams.set('referrer', new URLSearchParams(campaign).toString());
+    return url.toString();
+  } catch {
+    return href;
+  }
+}
+
 function isSignupLink(anchor: HTMLAnchorElement): boolean {
   return anchor.href.startsWith(AUTH_URL);
 }
@@ -118,6 +132,7 @@ export function initLinkTracking(): void {
       anchor.href = withAttribution(anchor.href);
       track('signup_click', { cta_label: label, cta_section: section });
     } else if (/apps\.apple\.com|play\.google\.com/.test(anchor.href)) {
+      if (anchor.href.includes('play.google.com')) anchor.href = withPlayReferrer(anchor.href);
       track('app_store_click', { store: anchor.href.includes('apple') ? 'app_store' : 'google_play', cta_section: section });
     }
   };

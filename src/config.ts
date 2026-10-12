@@ -6,8 +6,11 @@ export const BRAND_NAME = 'Bonanza powered by Valura.Ai';
 // Open-account and log-in both land on the Bonanza powered by Valura.Ai web app.
 export const AUTH_URL = 'https://bonanza.valura.ai/auth';
 
-export const APP_STORE_URL = 'https://apps.apple.com/in/app/valura-ai/id6752678259';
-export const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=ai.valura.invester&hl=en';
+// Store listings for the Bonanza co-branded app. Leave a store empty until its
+// listing is live: its button then reads "Coming soon" instead of sending
+// Bonanza visitors to a different app.
+export const APP_STORE_URL = '';
+export const PLAY_STORE_URL = '';
 
 export const BONANZA_IFSC_URL = 'https://bonanzaifsc.com';
 export const VALURA_URL = 'https://valura.ai';
