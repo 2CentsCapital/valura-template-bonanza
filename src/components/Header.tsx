@@ -11,7 +11,7 @@ import sebiLogo from '../assets/logos/sebi.svg';
 import bseLogo from '../assets/logos/bse.png';
 import aamLogo from '../assets/logos/aam.png';
 
-import bonanzaLogo from '../assets/logos/Frame 1618872944.svg';
+const bonanzaLogo = 'https://iili.io/nVrnLxe.png';
 import iconCoin from '../assets/icons/Coin blue.png';
 import iconBars from '../assets/icons/Bars green.png';
 import heroDashboardImage from '../assets/dashboard-preview.png';
@@ -44,7 +44,7 @@ export default function Header() {
             <a href="#why-global" className="nav-link" data-node-id="93:1487" onClick={(e) => smoothScroll(e, 'why-global')}><span>Why global</span></a>
             <a href="#invest-in" className="nav-link" data-node-id="93:1491" onClick={(e) => smoothScroll(e, 'invest-in')}><span>Invest in</span></a>
             <a href="#research" className="nav-link" data-node-id="93:1493" onClick={(e) => smoothScroll(e, 'research')}><span>Research</span></a>
-            <a href="#how-it-works" className="nav-link" data-node-id="93:1495" onClick={(e) => smoothScroll(e, 'how-it-works')}><span>How it works</span></a>
+            <a href="#how-it-works" className="nav-link" data-node-id="93:1495" onClick={(e) => smoothScroll(e, 'how-it-works')}><span>Open Account</span></a>
             <a href="#faq" className="nav-link" data-node-id="93:1496" onClick={(e) => smoothScroll(e, 'faq')}><span>FAQ</span></a>
           </div>
 
@@ -79,7 +79,7 @@ export default function Header() {
               <a href="#why-global" className="nav-link" onClick={(e) => smoothScroll(e, 'why-global')}>Why global</a>
               <a href="#invest-in" className="nav-link" onClick={(e) => smoothScroll(e, 'invest-in')}>Invest in</a>
               <a href="#research" className="nav-link" onClick={(e) => smoothScroll(e, 'research')}>Research</a>
-              <a href="#how-it-works" className="nav-link" onClick={(e) => smoothScroll(e, 'how-it-works')}>How it works</a>
+              <a href="#how-it-works" className="nav-link" onClick={(e) => smoothScroll(e, 'how-it-works')}>Open Account</a>
               <a href="#faq" className="nav-link" onClick={(e) => smoothScroll(e, 'faq')}>FAQ</a>
               <div className="mobile-nav-actions">
                 <a href="#login" className="login-link" onClick={() => setIsMenuOpen(false)}>Log in</a>

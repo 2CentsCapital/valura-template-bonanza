@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
 :root {
   --color-green: #1A3836;
@@ -10,9 +10,17 @@
   --color-bg-dark: #1A3836;
   --color-black: #000000;
   
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-serif: 'Inter', system-ui, sans-serif;
-  --font-open-sans: 'Inter', system-ui, sans-serif;
+  /* Brand CTA Colors */
+  --color-cta: #29a672;
+  --color-cta-hover: #238d60;
+  --color-cta-text: #ffffff;
+  --color-cta-yellow: #FFD200;
+  --color-cta-yellow-hover: #E6BD00;
+  --color-cta-yellow-text: #000000;
+  
+  --font-sans: 'Poppins', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Poppins', system-ui, sans-serif;
+  --font-open-sans: 'Poppins', system-ui, sans-serif;
   
   font-family: var(--font-sans);
   color-scheme: light;
@@ -47,6 +55,12 @@ html {
 
 *, *::before, *::after {
   box-sizing: border-box;
+  font-family: var(--font-sans);
+}
+
+h1, h2, h3, h4, h5, h6, b, strong {
+  font-family: var(--font-sans);
+  font-weight: 600;
 }
 
 button, input, select, textarea {
@@ -77,19 +91,40 @@ button, input, select, textarea {
 }
 
 .btn-primary {
-  background-color: var(--color-white);
-  color: var(--color-purple-light);
-  font-weight: 500;
+  background-color: var(--color-cta);
+  color: var(--color-cta-text);
+  font-weight: 600;
   font-size: 16px;
   padding: 14px 28px;
   border-radius: 16px;
-  border: none;
+  border: 1px solid var(--color-cta);
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }
 
 .btn-primary:hover {
-  opacity: 0.9;
+  background-color: var(--color-cta-hover);
+  border-color: var(--color-cta-hover);
+  opacity: 0.95;
+  transform: translateY(-1px);
+}
+
+/* Yellow CTA for Dark Blue UI / Cards */
+.btn-yellow,
+.cta-yellow {
+  background-color: var(--color-cta-yellow) !important;
+  color: var(--color-cta-yellow-text) !important;
+  border: 1px solid var(--color-cta-yellow) !important;
+  font-weight: 600 !important;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-yellow:hover,
+.cta-yellow:hover {
+  background-color: var(--color-cta-yellow-hover) !important;
+  border-color: var(--color-cta-yellow-hover) !important;
+  opacity: 0.95;
   transform: translateY(-1px);
 }
 

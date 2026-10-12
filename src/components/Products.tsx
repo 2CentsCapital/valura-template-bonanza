@@ -27,6 +27,7 @@ export default function Products() {
               <p className="product-card-description" data-node-id="93:1352">
                 Build long-term wealth through carefully selected stocks.
               </p>
+              <span className="card-cta-btn">Explore →</span>
             </div>
             <div className="product-image-container">
               <img src={imgEquity} className="product-image" alt="Equity Investing" />
@@ -40,6 +41,7 @@ export default function Products() {
               <p className="product-card-description" data-node-id="93:1360">
                 Invest across diversified portfolios managed by industry experts.
               </p>
+              <span className="card-cta-btn">Explore →</span>
             </div>
             <div className="product-image-container">
               <img src={imgMutualFunds} className="product-image" alt="Mutual Funds" />
@@ -53,6 +55,7 @@ export default function Products() {
               <p className="product-card-description" data-node-id="93:1368">
                 Diversify internationally and unlock worldwide investment opportunities.
               </p>
+              <span className="card-cta-btn">Explore →</span>
             </div>
             <div className="product-image-container">
               <img src={imgGlobalMarkets} className="product-image" alt="Global Markets" />

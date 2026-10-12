@@ -84,7 +84,7 @@
   align-items: center;
   justify-content: center;
   color: var(--color-white);
-  font-weight: bold;
+  font-weight: 600;
   font-size: 16px;
 }
 
@@ -111,7 +111,7 @@
   font-size: 28px;
   color: var(--color-dark);
   margin: 0 0 28px;
-  font-weight: bold;
+  font-weight: 600;
 }
 
 .contact-form {
@@ -154,7 +154,7 @@
 
 .form-group input:focus,
 .form-group select:focus {
-  border-color: #2B59A7; /* blue border on focus */
+  border-color: #29a672; /* green border on focus */
   background-color: #ffffff;
 }
 
@@ -171,7 +171,7 @@
   font-family: var(--font-sans);
   font-size: 16px;
   font-weight: 600;
-  background-color: #2B59A7; /* Blue button */
+  background-color: #29a672; /* CTA green */
   color: #ffffff;
   border: none;
   padding: 16px;
@@ -186,7 +186,7 @@
 }
 
 .form-submit-btn:hover {
-  background-color: #1A3F6F;
+  background-color: #238d60;
 }
 
 .form-submit-btn:active {

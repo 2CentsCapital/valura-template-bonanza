@@ -46,20 +46,21 @@
 }
 
 .developers-btn {
-  background-color: transparent;
-  color: var(--color-dark);
-  border: 1px solid #c6c6c1;
+  background-color: #29a672;
+  color: #ffffff;
+  border: 1px solid #29a672;
   border-radius: 16px;
   padding: 12px 24px;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .developers-btn:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-  border-color: var(--color-dark);
+  background-color: #238d60;
+  border-color: #238d60;
+  transform: translateY(-1px);
 }
 
 .developers-right {

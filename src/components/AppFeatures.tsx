@@ -15,7 +15,7 @@ export default function AppFeatures() {
       <section className="feature-section" data-node-id="93:1322">
         <div className="feature-info">
           <div className="feature-badge-container">
-            <div className="badge" data-node-id="93:1323">
+            <div className="badge badge-blue" data-node-id="93:1323">
               <span data-node-id="93:1324">MARKET RESEARCH</span>
             </div>
           </div>
@@ -49,7 +49,7 @@ export default function AppFeatures() {
       <section className="feature-section reverse" data-node-id="93:1300">
         <div className="feature-info">
           <div className="feature-badge-container">
-            <div className="badge" data-node-id="93:1301">
+            <div className="badge badge-blue" data-node-id="93:1301">
               <span data-node-id="93:1302">WEALTH SOLUTIONS</span>
             </div>
           </div>
@@ -83,7 +83,7 @@ export default function AppFeatures() {
       <section className="feature-section" data-node-id="93:1278">
         <div className="feature-info">
           <div className="feature-badge-container">
-            <div className="badge" data-node-id="93:1279">
+            <div className="badge badge-blue" data-node-id="93:1279">
               <span data-node-id="93:1280">EXPERT GUIDANCE</span>
             </div>
           </div>

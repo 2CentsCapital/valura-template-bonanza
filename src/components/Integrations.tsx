@@ -2,7 +2,8 @@ import './Integrations.css';
 
 export default function Integrations() {
   return (
-    <section id="how-it-works" className="integrations-wrapper" data-node-id="93:929">
+    <section id="open-account" className="integrations-wrapper" data-node-id="93:929">
+      <span id="how-it-works" style={{ position: 'absolute', top: '-80px' }} />
       <div className="integrations" data-node-id="93:930">
         <div className="integrations-split">
           {/* Left Column: Benefits Text */}

@@ -1,5 +1,5 @@
 .cta-section-wrapper {
-  background-color: #292929;
+  background-color: #142742; /* Dark Blue UI */
   padding: 80px 0;
   display: flex;
   justify-content: center;
@@ -48,20 +48,22 @@
 }
 
 .cta-primary-btn {
-  background-color: #2B59A7;
-  color: #ffffff;
-  border: 1px solid #2B59A7;
+  background-color: #FFD200 !important; /* Yellow CTA on Dark Blue UI */
+  color: #000000 !important; /* Black text */
+  border: 1px solid #FFD200 !important;
   padding: 14px 28px;
   border-radius: 16px;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600 !important;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease-in-out;
   text-align: center;
 }
 
 .cta-primary-btn:hover {
-  opacity: 0.9;
+  background-color: #E6BD00 !important;
+  border-color: #E6BD00 !important;
+  color: #000000 !important;
   transform: translateY(-1px);
 }
 

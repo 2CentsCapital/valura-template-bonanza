@@ -33,6 +33,21 @@
   margin-bottom: 24px;
 }
 
+.feature-badge-container .badge,
+.badge-blue {
+  background-color: #2B59A7 !important;
+  color: #ffffff !important;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 100px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .feature-title {
   font-family: var(--font-serif);
   font-size: 48px;

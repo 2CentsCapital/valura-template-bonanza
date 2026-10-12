@@ -49,8 +49,8 @@
   border-radius: 32px;
   padding: 32px;
   color: var(--color-white);
-  height: 380px;
-  min-height: 380px;
+  height: 460px;
+  min-height: 460px;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -92,6 +92,48 @@
   background-color: #2854A9;
 }
 
+.card-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px;
+  padding: 8px 18px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 600;
+  width: fit-content;
+  transition: transform 0.2s ease, opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.product-card:hover .card-cta-btn {
+  transform: translateX(4px);
+}
+
+/* Yellow CTA on Dark Blue cards (#1A3F6F, #2854A9) with black text */
+.card-health .card-cta-btn,
+.card-life .card-cta-btn {
+  background-color: #FFD200;
+  color: #000000;
+  border: 1px solid #FFD200;
+}
+
+.card-health:hover .card-cta-btn,
+.card-life:hover .card-cta-btn {
+  background-color: #E6BD00;
+  border-color: #E6BD00;
+}
+
+/* White CTA on green card with green text */
+.card-pension .card-cta-btn {
+  background-color: #ffffff;
+  color: #1A7A5C;
+  border: 1px solid #ffffff;
+}
+
+.card-pension:hover .card-cta-btn {
+  background-color: #f2fbf7;
+}
+
 /* Blob and Shape Graphics */
 .card-shape {
   position: absolute;
@@ -126,13 +168,13 @@
 /* Asset Images placement inside cards */
 .product-image-container {
   position: relative;
-  margin-top: 32px;
+  margin-top: 20px;
   margin-left: -32px;
   margin-right: -32px;
   margin-bottom: -32px; /* Pull to bottom edge */
   width: calc(100% + 64px);
   flex-grow: 1;
-  min-height: 150px;
+  min-height: 200px;
   flex-shrink: 0;
   overflow: hidden;
 }
@@ -143,7 +185,7 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 80px;
+  height: 60px;
   z-index: 1;
   pointer-events: none;
 }
@@ -170,11 +212,11 @@
   object-position: bottom;
   display: block;
   transition: transform 0.3s ease;
-  transform: translateY(-15px);
+  transform: translateY(0);
 }
 
 .product-card:hover .product-image {
-  transform: scale(1.03) translateY(-15px);
+  transform: scale(1.03);
 }
 
 /* Providers segment */

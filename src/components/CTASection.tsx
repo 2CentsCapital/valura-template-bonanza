@@ -14,7 +14,7 @@ export default function CTASection() {
             Join thousands of investors building diversified portfolios through expert research, innovative investment products, and trusted financial guidance.
           </p>
           <div className="cta-buttons-container">
-            <button className="cta-primary-btn" onClick={() => alert('Opening an investment account...')}>Open an Investment Account</button>
+            <button className="cta-primary-btn cta-yellow" onClick={() => alert('Opening an investment account...')}>Open an Investment Account</button>
             <button className="cta-secondary-btn" onClick={() => alert('Connecting with an expert...')}>Talk to an Investment Expert</button>
           </div>
         </div>
