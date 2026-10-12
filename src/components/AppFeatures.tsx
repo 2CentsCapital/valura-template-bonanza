@@ -71,7 +71,7 @@ export default function AppFeatures() {
           <div key={step.step} className={`feature-section container ${reversed ? 'reverse' : ''}`}>
             <div className="feature-info" data-reveal={reversed ? 'right' : 'left'}>
               <div className="feature-badge-container">
-                <p className="badge">Step {step.step}</p>
+                <p className="badge badge--blue">Step {step.step}</p>
               </div>
               <h3 className="feature-title">{step.title}</h3>
               <p className="feature-description">{step.description}</p>

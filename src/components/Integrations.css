@@ -132,8 +132,8 @@
 
 .form-group input:focus-visible,
 .form-group select:focus-visible {
-  border-color: var(--brand-royal);
-  box-shadow: 0 0 0 3px rgba(45, 87, 166, 0.3);
+  border-color: var(--cta);
+  box-shadow: 0 0 0 3px rgba(41, 166, 114, 0.3);
   outline: none;
 }
 

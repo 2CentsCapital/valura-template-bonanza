@@ -19,7 +19,7 @@ export default function CTASection() {
             Bonanza powered by Valura.Ai. A global desk built into the markets house you already trust.
           </p>
           <div className="cta-buttons-container" data-reveal="" style={revealDelay(180)}>
-            <a className="btn btn-primary" href={AUTH_URL}>
+            <a className="btn btn-yellow" href={AUTH_URL}>
               Open a global account
               <IconArrowRight className="btn-icon" size={20} />
             </a>

@@ -11,6 +11,14 @@
   --brand-red: #f55f6a;
   --white: #ffffff;
 
+  /* Calls to action, from the designer's 12 Oct styling pass: jade on light
+     surfaces, yellow on the dark closing band. Yellow carries midnight text,
+     never pure black. */
+  --cta: var(--brand-jade);
+  --cta-hover: #238d60;
+  --cta-yellow: #ffd200;
+  --cta-yellow-hover: #e6bd00;
+
   --ink: #1b223c;
   --ink-soft: rgba(27, 34, 60, 0.82);
   --ink-muted: rgba(27, 34, 60, 0.74);
@@ -204,6 +212,11 @@ main:focus {
   color: var(--white);
 }
 
+.badge--blue {
+  background-color: var(--brand-royal);
+  color: var(--white);
+}
+
 .section-title {
   font-size: clamp(30px, 3.4vw, 48px);
   font-weight: 600;
@@ -286,14 +299,25 @@ main:focus {
 }
 
 .btn-primary {
-  background-color: var(--brand-royal);
-  border-color: var(--brand-royal);
+  background-color: var(--cta);
+  border-color: var(--cta);
   color: var(--white);
 }
 
 .btn-primary:hover {
-  background-color: var(--brand-royal-deep);
-  border-color: var(--brand-royal-deep);
+  background-color: var(--cta-hover);
+  border-color: var(--cta-hover);
+}
+
+.btn-yellow {
+  background-color: var(--cta-yellow);
+  border-color: var(--cta-yellow);
+  color: var(--ink);
+}
+
+.btn-yellow:hover {
+  background-color: var(--cta-yellow-hover);
+  border-color: var(--cta-yellow-hover);
 }
 
 .btn-secondary {

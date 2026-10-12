@@ -8,7 +8,7 @@ const NAV_LINKS = [
   { href: '#why-global', label: 'Why global' },
   { href: '#invest-in', label: 'Invest in' },
   { href: '#research', label: 'Research' },
-  { href: '#how-it-works', label: 'How it works' },
+  { href: '#how-it-works', label: 'Open account' },
   { href: '#trust', label: 'Trust & regs' },
 ];
 
@@ -71,7 +71,7 @@ export default function Header() {
             Log in
           </a>
           <a href={AUTH_URL} className="btn btn-primary nav-cta">
-            Open account
+            Start investing
           </a>
         </div>
 
@@ -106,7 +106,7 @@ export default function Header() {
             Log in
           </a>
           <a href={AUTH_URL} className="btn btn-primary">
-            Open account
+            Start investing
           </a>
         </div>
       </div>

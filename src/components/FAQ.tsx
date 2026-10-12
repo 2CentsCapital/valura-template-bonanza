@@ -26,7 +26,7 @@ const FAQ_ITEMS: FaqItem[] = [
   {
     question: 'How do I open an account?',
     answer:
-      'Select Open account, complete digital KYC with your PAN and Aadhaar, then fund your account in rupees under LRS. You can also get started in the Valura.Ai app on iOS and Android.',
+      'Select Start investing, complete digital KYC with your PAN and Aadhaar, then fund your account in rupees under LRS. You can also get started in the Valura.Ai app on iOS and Android.',
   },
   {
     question: 'What does it cost?',
