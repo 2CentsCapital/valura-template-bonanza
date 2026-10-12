@@ -1,0 +1,68 @@
+.odo {
+  display: inline-flex;
+  align-items: flex-start;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+.odo-char {
+  display: inline-block;
+  height: 1.15em;
+  white-space: pre;
+}
+
+/* One column per digit: as wide as its final digit, one line tall. Digits that
+   roll past may overflow sideways for a moment; they are clipped vertically. */
+.odo-col {
+  display: inline-grid;
+  grid-template-rows: 1.15em;
+  height: 1.15em;
+  overflow: hidden;
+}
+
+@supports (overflow: clip) {
+  .odo-col {
+    overflow-x: visible;
+    overflow-y: clip;
+  }
+}
+
+.odo-sizer {
+  grid-area: 1 / 1;
+  visibility: hidden;
+}
+
+.odo-strip {
+  grid-area: 1 / 1;
+  align-self: start;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 0;
+  translate: 0 var(--odo-to);
+}
+
+.odo-strip > span {
+  display: block;
+  height: 1.15em;
+}
+
+/* Waiting to be revealed: show the start of the strip. Without the reveal
+   controller (html.reveal-live) the final value shows straight away. */
+html.reveal-live .odo[data-count='pending'] .odo-strip {
+  translate: 0 0;
+}
+
+.odo[data-count='run'] .odo-strip {
+  animation: odo-roll 880ms var(--ease-out) var(--odo-delay, 0ms) both;
+}
+
+@keyframes odo-roll {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 0 var(--odo-to);
+  }
+}

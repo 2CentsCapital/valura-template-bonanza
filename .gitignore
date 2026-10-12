@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local tool state: Netlify site links and agent settings stay off the repo
+.netlify/
+.claude/
